@@ -1,8 +1,9 @@
-import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_2.dart';
+import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/onboarding/presentation/widgets/onboarding_assets.dart';
 import 'package:flock_pilot/shared/widgets/floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomeScreen1 extends StatelessWidget {
   static const String id = 'welcome_screen_1';
@@ -13,7 +14,7 @@ class WelcomeScreen1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingButton(
-        handlePress: () => Navigator.pushNamed(context, WelcomeScreen2.id),
+        handlePress: () => context.go(RouteNames.onboarding2),
         icon: FaIcon(FontAwesomeIcons.arrowRight, size: 20),
       ),
       body: Center(
