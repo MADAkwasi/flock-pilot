@@ -1,5 +1,5 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
-import 'package:flock_pilot/core/theme/app_theme.dart';
+import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingAssets extends StatelessWidget {

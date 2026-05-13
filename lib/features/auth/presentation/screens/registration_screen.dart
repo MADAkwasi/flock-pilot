@@ -1,6 +1,6 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/core/router/route_names.dart';
-import 'package:flock_pilot/core/theme/app_theme.dart';
+import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flock_pilot/features/auth/presentation/widgets/registration_form.dart';
 import 'package:flock_pilot/shared/widgets/secondary_button.dart';
 import 'package:flutter/material.dart';

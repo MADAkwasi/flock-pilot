@@ -1,85 +1,168 @@
 import 'package:flutter/material.dart';
+import 'app_colors.dart';
 
-class AppColors {
-  AppColors._();
-
-  // =========================
-  // Brand Colors
-  // =========================
-
-  /// Primary Navy Blue
-  static const Color primary = Color(0xFF0B2D45);
-
-  /// Farm Green
-  static const Color secondary = Color(0xFF4E8B2B);
-
-  /// Accent Red
-  static const Color accent = Color(0xFFD62828);
+class AppTheme {
+  AppTheme._();
 
   // =========================
   // Light Theme
   // =========================
 
-  /// Main app background
-  static const Color background = Color(0xFFF8FAFC);
+  static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
 
-  /// Card / surface color
-  static const Color surface = Color(0xFFFFFFFF);
+    brightness: Brightness.light,
 
-  /// Primary text color
-  static const Color textPrimary = Color(0xFF1E293B);
+    scaffoldBackgroundColor: AppColors.background,
 
-  /// Secondary text color
-  static const Color textSecondary = Color(0xFF64748B);
+    colorScheme: const ColorScheme.light(
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+      surface: AppColors.surface,
+      error: AppColors.error,
+    ),
 
-  /// Border / divider color
-  static const Color border = Color(0xFFE2E8F0);
+    dividerColor: AppColors.border,
 
-  // =========================
-  // Semantic Colors
-  // =========================
+    textTheme: const TextTheme(
+      headlineLarge: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: AppColors.textPrimary,
+      ),
 
-  /// Success state
-  static const Color success = Color(0xFF16A34A);
+      headlineMedium: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textPrimary,
+      ),
 
-  /// Warning state
-  static const Color warning = Color(0xFFF59E0B);
+      bodyLarge: TextStyle(fontSize: 16, color: AppColors.textPrimary),
 
-  /// Error state
-  static const Color error = Color(0xFFDC2626);
+      bodyMedium: TextStyle(fontSize: 14, color: AppColors.textSecondary),
+    ),
 
-  /// Informational state
-  static const Color info = Color(0xFF2563EB);
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.secondary,
+        foregroundColor: Colors.white,
 
-  // =========================
-  // AI Assistant Colors
-  // =========================
+        padding: const EdgeInsets.symmetric(vertical: 16),
 
-  /// AI assistant chat background
-  static const Color aiBackground = Color(0xFFE8F5E9);
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    ),
 
-  /// AI assistant accent
-  static const Color aiAccent = secondary;
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.secondary,
+
+        side: const BorderSide(color: AppColors.secondary, width: 1.5),
+
+        padding: const EdgeInsets.symmetric(vertical: 16),
+
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    ),
+
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.surface,
+
+      hintStyle: const TextStyle(color: AppColors.textSecondary),
+
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+
+        borderSide: const BorderSide(color: AppColors.border),
+      ),
+
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+
+        borderSide: const BorderSide(color: AppColors.secondary, width: 2),
+      ),
+    ),
+  );
 
   // =========================
   // Dark Theme
   // =========================
 
-  /// Dark scaffold background
-  static const Color darkBackground = Color(0xFF0F172A);
+  static ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
 
-  /// Dark card/surface
-  static const Color darkSurface = Color(0xFF1E293B);
+    brightness: Brightness.dark,
 
-  /// Dark theme primary text
-  static const Color darkTextPrimary = Color(0xFFF8FAFC);
+    scaffoldBackgroundColor: AppColors.darkBackground,
 
-  /// Dark theme secondary text
-  static const Color darkTextSecondary = Color(0xFFCBD5E1);
+    colorScheme: const ColorScheme.dark(
+      primary: AppColors.primary,
+      secondary: AppColors.darkSecondary,
+      surface: AppColors.darkSurface,
+      error: AppColors.error,
+    ),
 
-  /// Dark border/divider
-  static const Color darkBorder = Color(0xFF334155);
+    dividerColor: AppColors.darkBorder,
 
-  /// Slightly brighter green for dark mode
-  static const Color darkSecondary = Color(0xFF65A30D);
+    textTheme: const TextTheme(
+      headlineLarge: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: AppColors.darkTextPrimary,
+      ),
+
+      headlineMedium: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: AppColors.darkTextPrimary,
+      ),
+
+      bodyLarge: TextStyle(fontSize: 16, color: AppColors.darkTextPrimary),
+
+      bodyMedium: TextStyle(fontSize: 14, color: AppColors.darkTextSecondary),
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.darkSecondary,
+        foregroundColor: Colors.white,
+
+        padding: const EdgeInsets.symmetric(vertical: 16),
+
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.darkSecondary,
+
+        side: const BorderSide(color: AppColors.darkSecondary, width: 1.5),
+
+        padding: const EdgeInsets.symmetric(vertical: 16),
+
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    ),
+
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.darkSurface,
+
+      hintStyle: const TextStyle(color: AppColors.darkTextSecondary),
+
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+
+        borderSide: const BorderSide(color: AppColors.darkBorder),
+      ),
+
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+
+        borderSide: const BorderSide(color: AppColors.darkSecondary, width: 2),
+      ),
+    ),
+  );
 }
