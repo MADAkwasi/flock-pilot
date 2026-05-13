@@ -3,6 +3,7 @@ class RouteNames {
   static const onboarding2 = '/onboarding-2';
 
   static const login = '/login';
+  static const register = '/register';
   static const dashboard = '/dashboard';
 
   static const flockDetails = '/flock/:id';
