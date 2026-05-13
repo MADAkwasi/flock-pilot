@@ -1,4 +1,3 @@
-import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class FloatingButton extends StatelessWidget {
@@ -16,9 +15,6 @@ class FloatingButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: handlePress,
       shape: CircleBorder(),
-      foregroundColor: AppColors.surface,
-      backgroundColor: AppColors.primary,
-      elevation: 20,
       child: icon,
     );
   }

@@ -1,5 +1,3 @@
-import 'package:flock_pilot/core/constants/app_constants.dart';
-import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingAssets extends StatelessWidget {
@@ -25,14 +23,14 @@ class OnboardingAssets extends StatelessWidget {
           SizedBox(height: 20),
           Text(
             heading,
-            style: kAppHeadingTextStyle,
+            style: Theme.of(context).textTheme.headlineLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 5),
           Text(
             description ?? '',
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppColors.textSecondary),
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
       ),

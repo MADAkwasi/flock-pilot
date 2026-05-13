@@ -23,14 +23,6 @@ class PrimaryButton extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton.icon(
           onPressed: handlePress,
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: bgColor,
-            foregroundColor: AppColors.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
           icon: icon,
           label: Text(label),
         ),

@@ -83,6 +83,11 @@ class AppTheme {
         borderSide: const BorderSide(color: AppColors.secondary, width: 2),
       ),
     ),
+
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primary,
+      foregroundColor: Colors.white,
+    ),
   );
 
   // =========================
@@ -163,6 +168,11 @@ class AppTheme {
 
         borderSide: const BorderSide(color: AppColors.darkSecondary, width: 2),
       ),
+    ),
+
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.darkSecondary,
+      foregroundColor: Colors.white,
     ),
   );
 }

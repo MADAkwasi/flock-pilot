@@ -1,4 +1,3 @@
-import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flock_pilot/features/auth/presentation/widgets/registration_form.dart';
@@ -18,19 +17,19 @@ class RegistrationScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 25),
           child: ListView(
             children: [
-              const Text(
+              Text(
                 'Create Your FlockPilot Account',
-                style: kAppHeadingTextStyle,
+                style: Theme.of(context).textTheme.headlineLarge,
                 textAlign: TextAlign.center,
               ),
-              const Text(
+              Text(
                 'Start managing your poultry farm with smart tracking, insights, and real-time flock monitoring.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.textSecondary),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 30),
               RegistrationForm(),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),
                 child: Row(
                   children: [
@@ -39,7 +38,7 @@ class RegistrationScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         'Or Register With',
-                        style: TextStyle(color: AppColors.textSecondary),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
 

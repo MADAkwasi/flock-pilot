@@ -1,4 +1,3 @@
-import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flock_pilot/features/auth/presentation/widgets/login_form.dart';
@@ -20,13 +19,13 @@ class LoginScreen extends StatelessWidget {
             children: [
               Text(
                 'Create Your FlockPilot Account',
-                style: kAppHeadingTextStyle,
+                style: Theme.of(context).textTheme.headlineLarge,
                 textAlign: TextAlign.center,
               ),
               Text(
                 'Start managing your poultry farm with smart tracking, insights, and real-time flock monitoring.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.textSecondary),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               SizedBox(height: 30),
               LoginForm(),
@@ -39,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         'Or Continue With',
-                        style: TextStyle(color: AppColors.textSecondary),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
 

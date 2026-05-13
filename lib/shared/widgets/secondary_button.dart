@@ -23,19 +23,6 @@ class SecondaryButton extends StatelessWidget {
         width: double.infinity,
         child: OutlinedButton.icon(
           onPressed: handlePress,
-
-          style: OutlinedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-
-            foregroundColor: color,
-
-            side: BorderSide(color: color, width: 2),
-
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-
           icon: icon,
 
           label: Text(label),
