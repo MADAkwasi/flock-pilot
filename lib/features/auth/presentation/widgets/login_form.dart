@@ -4,24 +4,28 @@ import 'package:flock_pilot/shared/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class RegistrationForm extends StatelessWidget {
-  const RegistrationForm({super.key});
+final _formKey = GlobalKey<FormState>();
+
+class LoginForm extends StatelessWidget {
+  LoginForm({super.key});
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
-          InputTextField(placeholder: 'First Name'),
-          InputTextField(placeholder: 'Last Name'),
           InputTextField(
             placeholder: 'Email Address',
             inputType: TextInputType.emailAddress,
           ),
-          InputTextField(placeholder: 'Password (8+ Characters)', isHidden: true),
+          InputTextField(placeholder: 'Password', isHidden: true),
           SizedBox(height: 20),
           PrimaryButton(
-            label: 'Create Account',
+            label: 'Login',
             handlePress: () => context.go(RouteNames.dashboard),
           ),
         ],

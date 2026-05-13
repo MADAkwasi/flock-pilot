@@ -1,14 +1,14 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/core/theme/app_theme.dart';
-import 'package:flock_pilot/features/auth/presentation/widgets/registration_form.dart';
+import 'package:flock_pilot/features/auth/presentation/widgets/login_form.dart';
 import 'package:flock_pilot/shared/widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,32 +18,32 @@ class RegistrationScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 25),
           child: ListView(
             children: [
-              const Text(
+              Text(
                 'Create Your FlockPilot Account',
                 style: kAppHeadingTextStyle,
                 textAlign: TextAlign.center,
               ),
-              const Text(
+              Text(
                 'Start managing your poultry farm with smart tracking, insights, and real-time flock monitoring.',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: AppColors.textSecondary),
               ),
-              const SizedBox(height: 30),
-              const RegistrationForm(),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
+              SizedBox(height: 30),
+              LoginForm(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Row(
                   children: [
-                    Expanded(child: Divider()),
+                    const Expanded(child: Divider()),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        'Or Register With',
+                        'Or Continue With',
                         style: TextStyle(color: AppColors.textSecondary),
                       ),
                     ),
 
-                    Expanded(child: Divider()),
+                    const Expanded(child: Divider()),
                   ],
                 ),
               ),
@@ -60,11 +60,11 @@ class RegistrationScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Already have an account?'),
+                  Text('Dont\'s have an account?'),
                   TextButton(
-                    onPressed: () => context.push(RouteNames.login),
+                    onPressed: () => context.push(RouteNames.register),
                     child: Text(
-                      'Log in',
+                      'Register',
                       style: TextStyle(
                         color: AppColors.secondary,
                         fontSize: 15,
