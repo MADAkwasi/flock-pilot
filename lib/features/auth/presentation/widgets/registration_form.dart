@@ -4,6 +4,8 @@ import 'package:flock_pilot/shared/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 class RegistrationForm extends StatelessWidget {
   RegistrationForm({super.key});
 
@@ -15,6 +17,7 @@ class RegistrationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           FormInputTextField(
