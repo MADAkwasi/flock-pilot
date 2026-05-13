@@ -1,4 +1,5 @@
 import 'package:flock_pilot/core/router/route_names.dart';
+import 'package:flock_pilot/features/auth/presentation/screens/registration_screen.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_1.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_2.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +15,10 @@ class AppRouter {
       GoRoute(
         path: RouteNames.onboarding2,
         builder: (context, state) => const WelcomeScreen2(),
+      ),
+      GoRoute(
+        path: RouteNames.register,
+        builder: (context, state) => const RegistrationScreen(),
       ),
     ],
   );

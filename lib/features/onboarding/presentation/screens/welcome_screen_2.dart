@@ -14,7 +14,7 @@ class WelcomeScreen2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingButton(
-        handlePress: () => context.go(RouteNames.onboarding1),
+        handlePress: () => context.go(RouteNames.register),
         icon: FaIcon(FontAwesomeIcons.arrowRight, size: 20),
       ),
       body: Center(
