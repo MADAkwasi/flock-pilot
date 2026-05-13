@@ -1,9 +1,10 @@
 import 'package:flock_pilot/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
-class InputField extends StatelessWidget {
-  const InputField({
+class FormInputTextField extends StatelessWidget {
+  const FormInputTextField({
     required this.placeholder,
+    required this.controller,
     this.isHidden,
     this.inputType,
     super.key,
@@ -12,18 +13,21 @@ class InputField extends StatelessWidget {
   final String placeholder;
   final TextInputType? inputType;
   final bool? isHidden;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
-          hintText: placeholder,
+          labelText: placeholder,
+          labelStyle: TextStyle(color: AppColors.primary),
           focusColor: AppColors.secondary,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(width: 2, color: AppColors.secondary),
+            borderSide: BorderSide(width: 2, color: AppColors.primary),
           ),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),

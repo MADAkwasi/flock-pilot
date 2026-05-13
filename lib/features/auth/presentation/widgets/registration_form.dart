@@ -1,24 +1,40 @@
 import 'package:flock_pilot/core/router/route_names.dart';
-import 'package:flock_pilot/shared/widgets/input_text_field.dart';
+import 'package:flock_pilot/shared/widgets/form_input_text_field.dart';
 import 'package:flock_pilot/shared/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class RegistrationForm extends StatelessWidget {
-  const RegistrationForm({super.key});
+  RegistrationForm({super.key});
+
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
       child: Column(
         children: [
-          InputTextField(placeholder: 'First Name'),
-          InputTextField(placeholder: 'Last Name'),
-          InputTextField(
+          FormInputTextField(
+            placeholder: 'First Name',
+            controller: firstNameController,
+          ),
+          FormInputTextField(
+            placeholder: 'Last Name',
+            controller: lastNameController,
+          ),
+          FormInputTextField(
             placeholder: 'Email Address',
             inputType: TextInputType.emailAddress,
+            controller: emailController,
           ),
-          InputTextField(placeholder: 'Password (8+ Characters)', isHidden: true),
+          FormInputTextField(
+            placeholder: 'Password (8+ Characters)',
+            isHidden: true,
+            controller: passwordController,
+          ),
           SizedBox(height: 20),
           PrimaryButton(
             label: 'Create Account',

@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Dont\'s have an account?'),
+                  Text('Don\'t have an account?'),
                   TextButton(
                     onPressed: () => context.push(RouteNames.register),
                     child: Text(

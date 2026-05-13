@@ -29,7 +29,7 @@ class RegistrationScreen extends StatelessWidget {
                 style: TextStyle(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 30),
-              const RegistrationForm(),
+              RegistrationForm(),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),
                 child: Row(
