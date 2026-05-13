@@ -88,6 +88,13 @@ class AppTheme {
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
     ),
+
+    iconTheme: const IconThemeData(color: AppColors.primary, size: 24),
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: AppColors.secondary,
+      unselectedItemColor: AppColors.textSecondary,
+    ),
   );
 
   // =========================
@@ -174,5 +181,7 @@ class AppTheme {
       backgroundColor: AppColors.darkSecondary,
       foregroundColor: Colors.white,
     ),
+
+    iconTheme: const IconThemeData(color: AppColors.darkTextPrimary, size: 24),
   );
 }
