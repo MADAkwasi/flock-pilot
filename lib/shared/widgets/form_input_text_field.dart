@@ -6,6 +6,7 @@ class FormInputTextField extends StatelessWidget {
     required this.controller,
     this.isHidden,
     this.inputType,
+    this.icon,
     super.key,
   });
 
@@ -13,6 +14,7 @@ class FormInputTextField extends StatelessWidget {
   final TextInputType? inputType;
   final bool? isHidden;
   final TextEditingController controller;
+  final Icon? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class FormInputTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: placeholder,
           labelStyle: Theme.of(context).textTheme.labelLarge,
+          prefixIcon: Center(widthFactor: 1, heightFactor: 1, child: icon),
         ),
         keyboardType: inputType,
         obscureText: isHidden ?? false,

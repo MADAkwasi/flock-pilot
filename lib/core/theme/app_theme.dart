@@ -44,7 +44,7 @@ class AppTheme {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.secondary,
+        backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
 
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -55,9 +55,9 @@ class AppTheme {
 
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: AppColors.secondary,
+        foregroundColor: AppColors.primary,
 
-        side: const BorderSide(color: AppColors.secondary, width: 1.5),
+        side: const BorderSide(color: AppColors.primary, width: 1.5),
 
         padding: const EdgeInsets.symmetric(vertical: 16),
 
@@ -134,7 +134,7 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.darkBackground,
 
     colorScheme: const ColorScheme.dark(
-      primary: AppColors.primary,
+      primary: AppColors.secondary,
       secondary: AppColors.darkSecondary,
       surface: AppColors.darkSurface,
       error: AppColors.error,

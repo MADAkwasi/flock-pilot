@@ -1,6 +1,6 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/core/utils/datetime.dart';
-import 'package:flock_pilot/features/home/presentation/widgets/action_widgets.dart';
+import 'package:flock_pilot/features/home/presentation/widgets/action_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/notification_alert_card.dart';
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: RefreshIndicator(
             color: Colors.green,
             backgroundColor: Colors.white,
@@ -54,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {},
                       icon: const FaIcon(FontAwesomeIcons.bell),
                     ),
-                    const CircleAvatar(child: Text('MD')),
+                    const CircleAvatar(
+                      foregroundColor: Colors.white,
+                      child: Text('MD'),
+                    ),
                   ],
                 ),
 

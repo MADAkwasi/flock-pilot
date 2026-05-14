@@ -67,7 +67,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: RouteNames.batches,
-                builder: (context, state) => const BatchesScreen(),
+                builder: (context, state) => BatchesScreen(),
               ),
             ],
           ),
