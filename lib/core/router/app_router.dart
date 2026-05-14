@@ -2,6 +2,7 @@ import 'package:flock_pilot/core/navigation/app_shell.dart';
 import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/login_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/registration_screen.dart';
+import 'package:flock_pilot/features/batches/presentation/screens/batches_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/home_screen.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_1.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_2.dart';
@@ -66,7 +67,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: RouteNames.batches,
-                builder: (context, state) => const HomeScreen(),
+                builder: (context, state) => const BatchesScreen(),
               ),
             ],
           ),
