@@ -4,7 +4,11 @@ class RouteNames {
 
   static const login = '/login';
   static const register = '/register';
-  static const dashboard = '/dashboard';
+
+  static const home = '/home';
+  static const batches = '/batches';
+  static const management = '/feed-management';
+  static const settings = '/settings';
 
   static const flockDetails = '/flock/:id';
 

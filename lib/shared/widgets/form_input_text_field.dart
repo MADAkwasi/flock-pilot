@@ -1,4 +1,3 @@
-import 'package:flock_pilot/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class FormInputTextField extends StatelessWidget {
@@ -23,13 +22,7 @@ class FormInputTextField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           labelText: placeholder,
-          labelStyle: TextStyle(color: AppColors.primary),
-          focusColor: AppColors.secondary,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(width: 2, color: AppColors.primary),
-          ),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          labelStyle: Theme.of(context).textTheme.labelLarge,
         ),
         keyboardType: inputType,
         obscureText: isHidden ?? false,

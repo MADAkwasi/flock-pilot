@@ -20,7 +20,7 @@ class WelcomeScreen2 extends StatelessWidget {
       body: Center(
         child: OnboardingAssets(
           heading: 'Your Intelligent Farm Assistant',
-          imageSrc: 'images/onboarding-illustration-2.png',
+          imageSrc: 'assets/images/onboarding-illustration-2.png',
           description:
               'FlockPilot helps you make better farming decisions with smart alerts, analytics, and personalized guidance.',
         ),

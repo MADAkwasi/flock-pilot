@@ -1,4 +1,4 @@
-import 'package:flock_pilot/core/theme/app_theme.dart';
+import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SecondaryButton extends StatelessWidget {
@@ -23,19 +23,6 @@ class SecondaryButton extends StatelessWidget {
         width: double.infinity,
         child: OutlinedButton.icon(
           onPressed: handlePress,
-
-          style: OutlinedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-
-            foregroundColor: color,
-
-            side: BorderSide(color: color, width: 2),
-
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-
           icon: icon,
 
           label: Text(label),

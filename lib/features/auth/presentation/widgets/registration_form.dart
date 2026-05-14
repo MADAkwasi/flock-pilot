@@ -41,7 +41,7 @@ class RegistrationForm extends StatelessWidget {
           SizedBox(height: 20),
           PrimaryButton(
             label: 'Create Account',
-            handlePress: () => context.go(RouteNames.dashboard),
+            handlePress: () => context.go(RouteNames.home),
           ),
         ],
       ),

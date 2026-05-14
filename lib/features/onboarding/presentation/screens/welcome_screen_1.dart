@@ -20,7 +20,7 @@ class WelcomeScreen1 extends StatelessWidget {
       body: Center(
         child: OnboardingAssets(
           heading: 'Manage Your Farm Smarter',
-          imageSrc: 'images/onboarding-illustration-1.png',
+          imageSrc: 'assets/images/onboarding-illustration-1.png',
           description:
               'Track your birds, feed usage, egg production, and daily farm activities all from one simple dashboard',
         ),

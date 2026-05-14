@@ -1,4 +1,4 @@
-import 'package:flock_pilot/core/theme/app_theme.dart';
+import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -23,14 +23,6 @@ class PrimaryButton extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton.icon(
           onPressed: handlePress,
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: bgColor,
-            foregroundColor: AppColors.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
           icon: icon,
           label: Text(label),
         ),
