@@ -1,17 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flock_pilot/core/utils/datetime.dart';
 import 'package:flock_pilot/data/dummy_data.dart';
+import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   Future<void> _refreshData() async {
     await Future.delayed(const Duration(seconds: 2));
 
@@ -68,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          getGreeting(),
+                          Greeting(greetingText: getGreeting(context)),
                           Text(
                             'Michael Darko',
                             style: Theme.of(context).textTheme.headlineLarge,
@@ -88,7 +89,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 // CAROUSEL SECTION
                 SizedBox(
-                  height: 250,
+                  height: 200,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Stack(
@@ -119,7 +120,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           items: batchData.map((batch) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 5,
+                                horizontal: 0,
                                 vertical: 10,
                               ),
                               child: Align(

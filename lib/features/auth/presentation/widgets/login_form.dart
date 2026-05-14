@@ -32,7 +32,7 @@ class LoginForm extends StatelessWidget {
           PrimaryButton(
             label: 'Login',
             handlePress: () {
-              context.go(RouteNames.dashboard);
+              context.go(RouteNames.home);
             },
           ),
         ],

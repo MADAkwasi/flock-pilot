@@ -95,6 +95,31 @@ class AppTheme {
       selectedItemColor: AppColors.secondary,
       unselectedItemColor: AppColors.textSecondary,
     ),
+
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: AppColors.surface,
+
+      indicatorColor: AppColors.primary.withValues(alpha: 0.15),
+
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: AppColors.primary,
+            fontWeight: FontWeight.w600,
+          );
+        }
+
+        return const TextStyle(color: AppColors.textSecondary);
+      }),
+
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: AppColors.primary);
+        }
+
+        return const IconThemeData(color: AppColors.textSecondary);
+      }),
+    ),
   );
 
   // =========================
@@ -183,5 +208,30 @@ class AppTheme {
     ),
 
     iconTheme: const IconThemeData(color: AppColors.darkTextPrimary, size: 24),
+
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: AppColors.darkSurface,
+
+      indicatorColor: AppColors.darkSecondary.withValues(alpha: 0.2),
+
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: AppColors.darkSecondary,
+            fontWeight: FontWeight.w600,
+          );
+        }
+
+        return const TextStyle(color: AppColors.darkTextSecondary);
+      }),
+
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: AppColors.darkSecondary);
+        }
+
+        return const IconThemeData(color: AppColors.darkTextSecondary);
+      }),
+    ),
   );
 }

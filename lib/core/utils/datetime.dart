@@ -1,13 +1,17 @@
-import 'package:flock_pilot/features/dashboard/presentation/widgets/greeting.dart';
+import 'package:flutter/material.dart';
 
-Greeting getGreeting() {
+String getGreeting(BuildContext context) {
   final hour = DateTime.now().hour;
 
+  final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+  final moonEmoji = isDarkMode ? '🌕' : '🌑';
+
   if (hour < 12) {
-    return Greeting(greetingText: 'Good Morning ⛅');
+    return 'Good Morning ⛅';
   } else if (hour < 17) {
-    return Greeting(greetingText: 'Good Afternoon ☀️');
+    return 'Good Afternoon ☀️';
   } else {
-    return Greeting(greetingText: 'Good Evening 🌑');
+    return 'Good Evening $moonEmoji';
   }
 }
