@@ -17,35 +17,76 @@ class ActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: handleAction,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-              padding: EdgeInsets.symmetric(vertical: 25),
+      child: GestureDetector(
+        onTap: handleAction,
+
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+
+              margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+
+              padding: const EdgeInsets.all(18),
+
               decoration: BoxDecoration(
-                color: cardColor,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+
+                  colors: [
+                    cardColor.withValues(alpha: 0.95),
+                    cardColor.withValues(alpha: 0.75),
+                  ],
+                ),
+
                 borderRadius: BorderRadius.circular(24),
+
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
 
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 15,
-                    offset: const Offset(0, 8),
+                    color: cardColor.withValues(alpha: 0.25),
+                    blurRadius: 18,
+                    offset: const Offset(0, 10),
                   ),
                 ],
               ),
-              child: Center(child: icon),
+
+              child: AspectRatio(
+                aspectRatio: 1,
+
+                child: Center(
+                  child: IconTheme(
+                    data: const IconThemeData(color: Colors.white, size: 26),
+
+                    child: icon,
+                  ),
+                ),
+              ),
             ),
-          ),
-          Text(
-            actionLabel,
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
-          ),
-        ],
+
+            const SizedBox(height: 6),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+
+              child: Text(
+                actionLabel,
+                textAlign: TextAlign.center,
+
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  height: 1.3,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

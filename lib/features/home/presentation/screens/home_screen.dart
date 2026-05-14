@@ -3,6 +3,7 @@ import 'package:flock_pilot/core/utils/datetime.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/action_widgets.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
+import 'package:flock_pilot/features/home/presentation/widgets/notification_alert_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/stat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -123,22 +124,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
 
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: actionCards
-                      .map(
-                        (action) => ActionCard(
-                          // handleAction: () => context.push(action['route']),
-                          cardColor: action['cardColor'],
-                          icon: FaIcon(
-                            action['icon'],
-                            color: Colors.white,
-                            size: 25,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: actionCards
+                        .map(
+                          (action) => ActionCard(
+                            // handleAction: () => context.push(action['route']),
+                            cardColor: action['cardColor'],
+                            icon: FaIcon(action['icon']),
+                            actionLabel: action['actionLabel'],
                           ),
-                          actionLabel: action['actionLabel'],
-                        ),
-                      )
-                      .toList(),
+                        )
+                        .toList(),
+                  ),
+                ),
+
+                Text(
+                  'Alerts & Notifications',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Column(
+                    children: notificationsData.sublist(0, 3).map((
+                      notification,
+                    ) {
+                      return NotificationAlertCard(
+                        title: notification["title"],
+                        message: notification["message"],
+                        time: notification["time"],
+                        type: notification["type"],
+                        icon: notification["icon"],
+                      );
+                    }).toList(),
+                  ),
                 ),
               ],
             ),

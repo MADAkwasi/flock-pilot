@@ -63,3 +63,63 @@ final List<Map<String, dynamic>> actionCards = [
     // 'route': RouteNames.mortality,
   },
 ];
+
+final List<Map<String, dynamic>> notificationsData = [
+  {
+    "title": "Low Feed Stock",
+    "message":
+        "Starter feed is running low for Batch A. Refill recommended within 2 days.",
+    "time": "10 mins ago",
+    "type": "warning",
+    "icon": FontAwesomeIcons.wheatAwn,
+  },
+
+  {
+    "title": "High Egg Production",
+    "message": "Batch C exceeded today's egg production target by 12%.",
+    "time": "35 mins ago",
+    "type": "success",
+    "icon": FontAwesomeIcons.egg,
+  },
+
+  {
+    "title": "Mortality Alert",
+    "message":
+        "2 bird deaths recorded in Batch B during the morning inspection.",
+    "time": "1 hour ago",
+    "type": "danger",
+    "icon": FontAwesomeIcons.drumstickBite,
+  },
+
+  {
+    "title": "Vaccination Reminder",
+    "message": "Batch D is scheduled for Newcastle vaccination tomorrow.",
+    "time": "3 hours ago",
+    "type": "info",
+    "icon": FontAwesomeIcons.syringe,
+  },
+
+  {
+    "title": "Delivery Completed",
+    "message": "Egg shipment to Accra Market was successfully delivered.",
+    "time": "5 hours ago",
+    "type": "success",
+    "icon": FontAwesomeIcons.truck,
+  },
+
+  {
+    "title": "Water Consumption Spike",
+    "message": "Batch A recorded unusually high water intake today.",
+    "time": "Yesterday",
+    "type": "warning",
+    "icon": FontAwesomeIcons.droplet,
+  },
+
+  {
+    "title": "Revenue Milestone",
+    "message": "Farm revenue crossed GHS 12,000 this month.",
+    "time": "Yesterday",
+    "type": "success",
+    "icon": FontAwesomeIcons.moneyBillTrendUp,
+  },
+];
