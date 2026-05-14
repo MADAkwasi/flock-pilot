@@ -1,6 +1,8 @@
+import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/core/utils/datetime.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
+import 'package:flock_pilot/features/home/presentation/widgets/stat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -89,6 +91,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                ),
+
+                GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+
+                  primary: false,
+                  padding: const EdgeInsets.only(top: 20),
+
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+
+                  children: statsData
+                      .map(
+                        (stat) => StatCard(
+                          icon: FaIcon(stat['icon']),
+                          cardName: (stat['cardName']),
+                          statFigure: stat['statFigure'],
+                          rateChange: stat['rateChange'],
+                          cardColor: stat['cardColor'],
+                        ),
+                      )
+                      .toList(),
                 ),
               ],
             ),
