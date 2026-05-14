@@ -1,5 +1,6 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/core/utils/datetime.dart';
+import 'package:flock_pilot/features/home/presentation/widgets/action_widgets.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/stat_card.dart';
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
+          padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
           child: RefreshIndicator(
             color: Colors.green,
             backgroundColor: Colors.white,
@@ -98,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   physics: const NeverScrollableScrollPhysics(),
 
                   primary: false,
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
 
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -112,6 +113,29 @@ class _HomeScreenState extends State<HomeScreen> {
                           statFigure: stat['statFigure'],
                           rateChange: stat['rateChange'],
                           cardColor: stat['cardColor'],
+                        ),
+                      )
+                      .toList(),
+                ),
+
+                Text(
+                  'Quick Actions',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: actionCards
+                      .map(
+                        (action) => ActionCard(
+                          // handleAction: () => context.push(action['route']),
+                          cardColor: action['cardColor'],
+                          icon: FaIcon(
+                            action['icon'],
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          actionLabel: action['actionLabel'],
                         ),
                       )
                       .toList(),

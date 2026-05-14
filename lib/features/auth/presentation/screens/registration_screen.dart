@@ -14,7 +14,7 @@ class RegistrationScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 25),
+          padding: const EdgeInsets.only(top: 10, left: 25, right: 25),
           child: ListView(
             children: [
               Text(
