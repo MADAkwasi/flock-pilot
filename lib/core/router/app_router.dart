@@ -1,5 +1,6 @@
 import 'package:flock_pilot/core/navigation/app_shell.dart';
 import 'package:flock_pilot/core/router/route_names.dart';
+import 'package:flock_pilot/features/ai_assistant/presentation/screens/ai_chat_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/login_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/registration_screen.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/batches_screen.dart';
@@ -38,6 +39,11 @@ class AppRouter {
       GoRoute(
         path: RouteNames.login,
         builder: (context, state) => const LoginScreen(),
+      ),
+
+      GoRoute(
+        path: RouteNames.aiAssistant,
+        builder: (context, state) => const AiChatScreen(),
       ),
 
       // =========================
