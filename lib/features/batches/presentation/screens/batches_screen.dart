@@ -45,8 +45,6 @@ class _BatchesScreenState extends State<BatchesScreen> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            SizedBox(height: 10),
-
             Text(
               'Batch Management',
               style: Theme.of(context).textTheme.headlineLarge,
@@ -105,10 +103,8 @@ class _BatchesScreenState extends State<BatchesScreen> {
               ),
             ),
 
-            Column(
-              children: filteredBatches()
-                  .map((batch) => BatchCard(batch: batch, onTap: () {}))
-                  .toList(),
+            ...filteredBatches().map(
+              (batch) => BatchCard(batch: batch, onTap: () {}),
             ),
 
             Padding(

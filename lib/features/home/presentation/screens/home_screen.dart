@@ -3,7 +3,7 @@ import 'package:flock_pilot/core/utils/datetime.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/action_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
-import 'package:flock_pilot/features/home/presentation/widgets/notification_alert_card.dart';
+import 'package:flock_pilot/shared/widgets/notification_alert_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/stat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
