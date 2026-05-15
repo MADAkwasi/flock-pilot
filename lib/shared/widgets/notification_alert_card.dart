@@ -4,7 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class NotificationAlertCard extends StatelessWidget {
   const NotificationAlertCard({
     required this.title,
-    required this.message,
+    this.message,
+    this.amount,
+    this.isNotification = true,
     required this.time,
     required this.type,
     required this.icon,
@@ -12,10 +14,12 @@ class NotificationAlertCard extends StatelessWidget {
   });
 
   final String title;
-  final String message;
+  final String? message;
   final String time;
   final String type;
   final FaIconData icon;
+  final bool isNotification;
+  final String? amount;
 
   Color _notificationColor() {
     switch (type) {
@@ -97,32 +101,34 @@ class NotificationAlertCard extends StatelessWidget {
                       ),
                     ),
 
-                    Container(
-                      width: 10,
-                      height: 10,
+                    if (isNotification)
+                      Container(
+                        width: 10,
+                        height: 10,
 
-                      decoration: BoxDecoration(
-                        color: accentColor,
-                        shape: BoxShape.circle,
+                        decoration: BoxDecoration(
+                          color: accentColor,
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                    ),
                   ],
                 ),
 
                 const SizedBox(height: 6),
 
                 // Message
-                Text(
-                  message,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    height: 1.4,
-                    color: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
+                if (message != null)
+                  Text(
+                    message ?? '',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      height: 1.4,
+                      color: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
 
                 // Footer
                 Row(
@@ -146,6 +152,15 @@ class NotificationAlertCard extends StatelessWidget {
               ],
             ),
           ),
+
+          if (amount != null)
+            Text(
+              amount ?? '',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF2E7D32),
+              ),
+            ),
         ],
       ),
     );

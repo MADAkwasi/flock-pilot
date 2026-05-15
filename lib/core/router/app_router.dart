@@ -3,6 +3,7 @@ import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/login_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/registration_screen.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/batches_screen.dart';
+import 'package:flock_pilot/features/feed/presentation/screen/feed_management_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/home_screen.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_1.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_2.dart';
@@ -78,8 +79,8 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteNames.management,
-                builder: (context, state) => const HomeScreen(),
+                path: RouteNames.feedManagement,
+                builder: (context, state) => const FeedManagementScreen(),
               ),
             ],
           ),

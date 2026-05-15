@@ -203,3 +203,45 @@ final List<Map<String, dynamic>> batchData = [
     "startDate": "2025-11-25",
   },
 ];
+
+final List<Map<String, dynamic>> feedInventory = [
+  {
+    'feedName': 'Starter Mash',
+    'batch': 'Broiler Batch B',
+    'remainingKg': 240,
+    'usagePerDay': 48,
+    'stockPercentage': 24,
+  },
+  {
+    'feedName': 'Layer Concentrate',
+    'batch': 'Layer Batch A',
+    'remainingKg': 760,
+    'usagePerDay': 62,
+    'stockPercentage': 78,
+  },
+  {
+    'feedName': 'Grower Feed',
+    'batch': 'Starter Batch D',
+    'remainingKg': 530,
+    'usagePerDay': 38,
+    'stockPercentage': 54,
+  },
+];
+
+final List<Map<String, dynamic>> feedActivities = [
+  {
+    'title': 'Added Starter Mash stock',
+    'time': '10 mins ago',
+    'amount': '+120kg',
+  },
+  {
+    'title': 'Feed allocated to Layer Batch A',
+    'time': '1 hour ago',
+    'amount': '-48kg',
+  },
+  {
+    'title': 'Daily feed usage logged',
+    'time': 'Today • 6:30 AM',
+    'amount': '-180kg',
+  },
+];
