@@ -7,7 +7,7 @@ class RouteNames {
 
   static const home = '/home';
   static const batches = '/batches';
-  static const management = '/feed-management';
+  static const feedManagement = '/feed-management';
   static const settings = '/settings';
 
   static const flockDetails = '/flock/:id';

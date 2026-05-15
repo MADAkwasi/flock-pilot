@@ -75,7 +75,7 @@ class HeadingCard extends StatelessWidget {
 
                     Text(
                       '1,230',
-                      style: Theme.of(context).textTheme.headlineLarge
+                      style: Theme.of(context).textTheme.headlineMedium
                           ?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
