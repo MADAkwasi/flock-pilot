@@ -15,6 +15,13 @@ class AppShell extends StatelessWidget {
     );
   }
 
+  Future<void> _refreshData() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    // TODO: reload your data here
+    // e.g. call API, update state, fetch new list
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +30,13 @@ class AppShell extends StatelessWidget {
 
         child: Image.asset('assets/images/flock_ai.png'),
       ),
-      body: navigationShell,
+      body: RefreshIndicator(
+        color: Colors.green,
+        backgroundColor: Colors.white,
+        strokeWidth: 3,
+        onRefresh: _refreshData,
+        child: navigationShell,
+      ),
 
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
