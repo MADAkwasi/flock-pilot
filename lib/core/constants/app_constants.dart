@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final List<Map<String, dynamic>> statsData = [
@@ -121,5 +120,86 @@ final List<Map<String, dynamic>> notificationsData = [
     "time": "Yesterday",
     "type": "success",
     "icon": FontAwesomeIcons.moneyBillTrendUp,
+  },
+];
+
+final List<Map<String, dynamic>> batchData = [
+  {
+    "batchId": "B001",
+    "batchName": "Layer Batch A",
+    "type": 'layer',
+    "status": "Active",
+    "birds": 120,
+    "ageWeeks": 12,
+    "feedPerDay": 18.5,
+    "eggsPerDay": 95,
+    "mortality": 2,
+    "healthScore": 92,
+    "startDate": "2025-10-01",
+  },
+  {
+    "batchId": "B002",
+    "batchName": "Broiler Batch B",
+    "type": 'broiler',
+    "status": "Active",
+    "birds": 80,
+    "ageWeeks": 6,
+    "feedPerDay": 14.2,
+    "eggsPerDay": 0,
+    "mortality": 1,
+    "healthScore": 88,
+    "startDate": "2025-11-10",
+  },
+  {
+    "batchId": "B003",
+    "batchName": "Layer Batch C",
+    "type": 'layer',
+    "status": "Monitoring",
+    "birds": 150,
+    "ageWeeks": 18,
+    "feedPerDay": 22.0,
+    "eggsPerDay": 110,
+    "mortality": 3,
+    "healthScore": 85,
+    "startDate": "2025-08-15",
+  },
+  {
+    "batchId": "B004",
+    "batchName": "Starter Batch D",
+    "type": 'broiler',
+    "status": "Active",
+    "birds": 200,
+    "ageWeeks": 4,
+    "feedPerDay": 16.8,
+    "eggsPerDay": 0,
+    "mortality": 0,
+    "healthScore": 96,
+    "startDate": "2025-12-01",
+  },
+  {
+    "batchId": "B005",
+    "batchName": "Layer Batch E",
+    "type": 'layer',
+    "status": "Critical",
+    "birds": 90,
+    "ageWeeks": 20,
+    "feedPerDay": 20.1,
+    "eggsPerDay": 70,
+    "mortality": 6,
+    "healthScore": 60,
+    "startDate": "2025-07-20",
+  },
+  {
+    "batchId": "B006",
+    "batchName": "Broiler Batch F",
+    "type": 'broiler',
+    "status": "Active",
+    "birds": 110,
+    "ageWeeks": 8,
+    "feedPerDay": 17.3,
+    "eggsPerDay": 0,
+    "mortality": 1,
+    "healthScore": 90,
+    "startDate": "2025-11-25",
   },
 ];

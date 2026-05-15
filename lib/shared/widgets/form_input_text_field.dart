@@ -25,7 +25,9 @@ class FormInputTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: placeholder,
           labelStyle: Theme.of(context).textTheme.labelLarge,
-          prefixIcon: Center(widthFactor: 1, heightFactor: 1, child: icon),
+          prefixIcon: icon != null
+              ? Center(widthFactor: 1, heightFactor: 1, child: icon)
+              : null,
         ),
         keyboardType: inputType,
         obscureText: isHidden ?? false,

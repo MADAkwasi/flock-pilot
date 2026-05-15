@@ -13,6 +13,8 @@ class RegistrationForm extends StatelessWidget {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,11 @@ class RegistrationForm extends StatelessWidget {
             placeholder: 'Password (8+ Characters)',
             isHidden: true,
             controller: passwordController,
+          ),
+          FormInputTextField(
+            placeholder: 'Confirm Password',
+            isHidden: true,
+            controller: confirmPasswordController,
           ),
           SizedBox(height: 20),
           PrimaryButton(
