@@ -1,3 +1,4 @@
+import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,9 +67,7 @@ class _AppShellState extends State<AppShell> {
             ? FloatingActionButton.extended(
                 key: const ValueKey('extended_fab'),
 
-                onPressed: () {
-                  // TODO: Navigate to AI screen
-                },
+                onPressed: () => context.push(RouteNames.aiAssistant),
 
                 backgroundColor: Theme.of(context).colorScheme.primary,
 
@@ -85,9 +84,7 @@ class _AppShellState extends State<AppShell> {
             : FloatingActionButton(
                 key: const ValueKey('normal_fab'),
 
-                onPressed: () {
-                  // TODO: Navigate to AI screen
-                },
+                onPressed: () => context.push(RouteNames.aiAssistant),
 
                 backgroundColor: Theme.of(context).colorScheme.primary,
 
