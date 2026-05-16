@@ -1,11 +1,10 @@
-import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     required this.label,
     required this.handlePress,
-    this.bgColor = AppColors.primary,
+    this.bgColor,
     this.icon,
     super.key,
   });
@@ -13,7 +12,7 @@ class PrimaryButton extends StatelessWidget {
   final Icon? icon;
   final String label;
   final VoidCallback handlePress;
-  final Color bgColor;
+  final Color? bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +21,7 @@ class PrimaryButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(backgroundColor: bgColor),
           onPressed: handlePress,
           icon: icon,
           label: Text(label),

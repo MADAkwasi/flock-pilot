@@ -12,6 +12,7 @@ class RouteNames {
   static const settings = '/settings';
   static const vaccination = '/vaccination';
   static const mortality = '/mortality';
+  static const recordFeed = '/record-feed';
   static const batchDetails = '/batch/:batchId';
 
   static const flockDetails = '/flock/:id';

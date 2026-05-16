@@ -1,5 +1,6 @@
 import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flock_pilot/shared/widgets/form_input_text_field.dart';
+import 'package:flock_pilot/shared/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 
 class VaccinationScreen extends StatefulWidget {
@@ -84,13 +85,7 @@ class _VaccinationScreenState extends State<VaccinationScreen> {
 
             const SizedBox(height: 30),
 
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () {},
-                child: const Text('Schedule Vaccination'),
-              ),
-            ),
+            PrimaryButton(label: 'Schedule Vaccination', handlePress: () {}),
           ],
         ),
       ),

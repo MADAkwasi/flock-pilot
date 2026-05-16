@@ -286,6 +286,7 @@ final List<Map<String, dynamic>> batchQuickActions = [
     "icon": FontAwesomeIcons.wheatAwn,
     "label": 'Add Feed Record',
     "color": const Color(0xFF00C853),
+    "route": RouteNames.recordFeed,
   },
   {
     "icon": FontAwesomeIcons.syringe,
