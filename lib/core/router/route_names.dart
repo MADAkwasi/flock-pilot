@@ -9,6 +9,7 @@ class RouteNames {
   static const batches = '/batches';
   static const feedManagement = '/feed-management';
   static const settings = '/settings';
+  static const batchDetails = '/batch/:batchId';
 
   static const flockDetails = '/flock/:id';
 

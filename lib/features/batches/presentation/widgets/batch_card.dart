@@ -1,3 +1,4 @@
+import 'package:flock_pilot/shared/utils/type_colors.dart';
 import 'package:flutter/material.dart';
 
 class BatchCard extends StatelessWidget {
@@ -5,23 +6,6 @@ class BatchCard extends StatelessWidget {
 
   final Map<String, dynamic> batch;
   final VoidCallback onTap;
-
-  Color _statusColor(String status) {
-    switch (status.toLowerCase()) {
-      case 'active':
-        return Colors.green;
-      case 'critical':
-        return Colors.red;
-      case 'monitoring':
-        return Colors.orange;
-      default:
-        return Colors.grey;
-    }
-  }
-
-  Color _typeColor(String type) {
-    return type == 'layer' ? Colors.blue : Colors.deepOrange;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,13 +50,13 @@ class BatchCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: _typeColor(type).withValues(alpha: 0.15),
+                      color: typeColor(type).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       type.toUpperCase(),
                       style: TextStyle(
-                        color: _typeColor(type),
+                        color: typeColor(type),
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                       ),
@@ -91,14 +75,14 @@ class BatchCard extends StatelessWidget {
                     height: 10,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: _statusColor(status),
+                      color: statusColor(status),
                     ),
                   ),
                   const SizedBox(width: 6),
                   Text(
                     status,
                     style: TextStyle(
-                      color: _statusColor(status),
+                      color: statusColor(status),
                       fontWeight: FontWeight.w500,
                     ),
                   ),

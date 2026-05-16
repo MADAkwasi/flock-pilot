@@ -1,6 +1,8 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
-import 'package:flock_pilot/core/utils/datetime.dart';
-import 'package:flock_pilot/features/home/presentation/widgets/action_card.dart';
+import 'package:flock_pilot/shared/widgets/action_card.dart';
+import 'package:flock_pilot/shared/enums/cards.dart';
+import 'package:flock_pilot/shared/utils/datetime.dart';
+// import 'package:flock_pilot/features/home/presentation/widgets/action_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
 import 'package:flock_pilot/shared/widgets/notification_alert_card.dart';
@@ -115,16 +117,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 20, top: 10),
               child: Row(
+                spacing: 7,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: actionCards
                     .map(
                       (action) => ActionCard(
-                        // handleAction: () => context.push(action['route']),
-                        cardColor: action['cardColor'],
-                        icon: FaIcon(action['icon']),
-                        actionLabel: action['actionLabel'],
+                        onTap: () {},
+                        color: action['cardColor'],
+                        icon: FaIcon(
+                          action['icon'],
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                        label: action['actionLabel'],
+                        textPosition: CardTextPosition.bottom,
                       ),
                     )
                     .toList(),

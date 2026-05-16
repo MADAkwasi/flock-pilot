@@ -1,9 +1,8 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
-import 'package:flock_pilot/features/feed/presentation/widgets/feed_action_card.dart';
 import 'package:flock_pilot/features/feed/presentation/widgets/feed_card.dart';
 import 'package:flock_pilot/features/feed/presentation/widgets/feed_summary_card.dart';
+import 'package:flock_pilot/shared/widgets/action_card.dart';
 import 'package:flock_pilot/shared/widgets/notification_alert_card.dart';
-import 'package:flock_pilot/shared/widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -38,19 +37,35 @@ class FeedManagementScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             Row(
+              spacing: 10,
               children: [
-                FeedActionCard(
-                  icon: FontAwesomeIcons.plus,
+                ActionCard(
+                  onTap: () {},
+                  icon: FaIcon(
+                    FontAwesomeIcons.plus,
+                    color: Colors.white,
+                    size: 18,
+                  ),
                   label: 'Add Feed',
                   color: const Color(0xFF2E7D32),
                 ),
-                FeedActionCard(
-                  icon: FontAwesomeIcons.clipboardList,
+                ActionCard(
+                  onTap: () {},
+                  icon: FaIcon(
+                    FontAwesomeIcons.clipboardList,
+                    color: Colors.white,
+                    size: 18,
+                  ),
                   label: 'Usage Logs',
                   color: const Color(0xFF1565C0),
                 ),
-                FeedActionCard(
-                  icon: FontAwesomeIcons.triangleExclamation,
+                ActionCard(
+                  onTap: () {},
+                  icon: FaIcon(
+                    FontAwesomeIcons.triangleExclamation,
+                    color: Colors.white,
+                    size: 18,
+                  ),
                   label: 'Low Stock',
                   color: const Color(0xFFEF6C00),
                 ),
@@ -106,12 +121,6 @@ class FeedManagementScreen extends StatelessWidget {
                 isNotification: false,
                 icon: FontAwesomeIcons.clipboardCheck,
               ),
-            ),
-
-            SecondaryButton(
-              label: 'Add Feed Record',
-              handlePress: () {},
-              icon: FaIcon(FontAwesomeIcons.plus),
             ),
           ],
         ),

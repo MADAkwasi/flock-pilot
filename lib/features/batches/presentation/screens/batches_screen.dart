@@ -1,10 +1,12 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
+import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/batches/presentation/widgets/batch_card.dart';
 import 'package:flock_pilot/features/batches/presentation/widgets/heading_card.dart';
 import 'package:flock_pilot/shared/widgets/form_input_text_field.dart';
 import 'package:flock_pilot/shared/widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class BatchesScreen extends StatefulWidget {
   const BatchesScreen({super.key});
@@ -104,7 +106,17 @@ class _BatchesScreenState extends State<BatchesScreen> {
             ),
 
             ...filteredBatches().map(
-              (batch) => BatchCard(batch: batch, onTap: () {}),
+              (batch) => BatchCard(
+                batch: batch,
+                onTap: () {
+                  context.push(
+                    RouteNames.batchDetails.replaceFirst(
+                      ':batchId',
+                      batch['batchId'],
+                    ),
+                  );
+                },
+              ),
             ),
 
             Padding(

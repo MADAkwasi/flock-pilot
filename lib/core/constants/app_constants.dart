@@ -25,7 +25,7 @@ final List<Map<String, dynamic>> statsData = [
     "cardColor": const Color(0xFF00C853),
   },
   {
-    "icon": FontAwesomeIcons.drumstickBite,
+    "icon": FontAwesomeIcons.skull,
     "cardName": "Mortality Rate",
     "statFigure": 3,
     "rateChange": -0.4,
@@ -57,7 +57,7 @@ final List<Map<String, dynamic>> actionCards = [
 
   {
     'actionLabel': 'Log Mortality',
-    'icon': FontAwesomeIcons.drumstickBite,
+    'icon': FontAwesomeIcons.skull,
     'cardColor': const Color(0xFF5C1A1A),
     // 'route': RouteNames.mortality,
   },
@@ -271,5 +271,28 @@ final List<Map<String, dynamic>> settingsOptions = [
     'icon': FontAwesomeIcons.circleInfo,
     'title': 'About FlockPilot',
     'subtitle': 'App version & info',
+  },
+];
+
+final List<Map<String, dynamic>> batchQuickActions = [
+  {
+    "icon": FontAwesomeIcons.egg,
+    "label": 'Record Eggs',
+    "color": const Color(0xFF2B7FFF),
+  },
+  {
+    "icon": FontAwesomeIcons.wheatAwn,
+    "label": 'Add Feed Record',
+    "color": const Color(0xFF00C853),
+  },
+  {
+    "icon": FontAwesomeIcons.syringe,
+    "label": 'Vaccination',
+    "color": const Color(0xFFFF9800),
+  },
+  {
+    "icon": FontAwesomeIcons.skull,
+    "label": 'Mortality',
+    "color": const Color(0xFF8B1E1E),
   },
 ];
