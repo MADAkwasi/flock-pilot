@@ -11,6 +11,7 @@ class RouteNames {
   static const feedManagement = '/feed-management';
   static const settings = '/settings';
   static const vaccination = '/vaccination';
+  static const mortality = '/mortality';
   static const batchDetails = '/batch/:batchId';
 
   static const flockDetails = '/flock/:id';

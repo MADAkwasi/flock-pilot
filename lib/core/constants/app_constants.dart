@@ -60,7 +60,7 @@ final List<Map<String, dynamic>> actionCards = [
     'actionLabel': 'Log Mortality',
     'icon': FontAwesomeIcons.skull,
     'cardColor': const Color(0xFF5C1A1A),
-    // 'route': RouteNames.mortality,
+    'route': RouteNames.mortality,
   },
 ];
 
@@ -297,5 +297,6 @@ final List<Map<String, dynamic>> batchQuickActions = [
     "icon": FontAwesomeIcons.skull,
     "label": 'Record Mortality',
     "color": const Color(0xFF8B1E1E),
+    "route": RouteNames.mortality,
   },
 ];
