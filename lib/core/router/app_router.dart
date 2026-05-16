@@ -3,6 +3,7 @@ import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/ai_assistant/presentation/screens/ai_chat_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/login_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/registration_screen.dart';
+import 'package:flock_pilot/features/batches/presentation/screens/batch_details.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/batches_screen.dart';
 import 'package:flock_pilot/features/feed/presentation/screen/feed_management_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/home_screen.dart';
@@ -16,9 +17,6 @@ class AppRouter {
     initialLocation: RouteNames.onboarding1,
 
     routes: [
-      // =========================
-      // Onboarding
-      // =========================
       GoRoute(
         path: RouteNames.onboarding1,
         builder: (context, state) => const WelcomeScreen1(),
@@ -29,9 +27,6 @@ class AppRouter {
         builder: (context, state) => const WelcomeScreen2(),
       ),
 
-      // =========================
-      // Auth
-      // =========================
       GoRoute(
         path: RouteNames.register,
         builder: (context, state) => const RegistrationScreen(),
@@ -47,18 +42,21 @@ class AppRouter {
         builder: (context, state) => const AiChatScreen(),
       ),
 
-      // =========================
-      // Bottom Navigation Shell
-      // =========================
+      GoRoute(
+        path: RouteNames.batchDetails,
+        builder: (context, state) {
+          final batchId = state.pathParameters['batchId'];
+
+          return BatchDetailScreen(batchId: batchId!);
+        },
+      ),
+
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return AppShell(navigationShell: navigationShell);
         },
 
         branches: [
-          // =========================
-          // Home Branch
-          // =========================
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -68,9 +66,6 @@ class AppRouter {
             ],
           ),
 
-          // =========================
-          // Batches Branch
-          // =========================
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -80,9 +75,6 @@ class AppRouter {
             ],
           ),
 
-          // =========================
-          // Feed Management Branch
-          // =========================
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -92,9 +84,6 @@ class AppRouter {
             ],
           ),
 
-          // =========================
-          // Settings Branch
-          // =========================
           StatefulShellBranch(
             routes: [
               GoRoute(

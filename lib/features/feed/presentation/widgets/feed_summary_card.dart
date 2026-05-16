@@ -42,7 +42,7 @@ class FeedSummaryCard extends StatelessWidget {
             Theme.of(context).colorScheme.primary,
             Theme.of(context).brightness == Brightness.dark
                 ? Color(0xFF1B5E20)
-                : Color(0xFF082232),
+                : Color(0xFF061D2C),
           ],
         ),
         color: Theme.of(context).colorScheme.primary,

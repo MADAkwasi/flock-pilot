@@ -1,4 +1,3 @@
-import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class HeadingCard extends StatelessWidget {
@@ -34,9 +33,16 @@ class HeadingCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
 
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? AppColors.secondary
-            : AppColors.primary,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).brightness == Brightness.dark
+                ? Color(0xFF1B5E20)
+                : Color(0xFF061D2C),
+          ],
+        ),
 
         borderRadius: BorderRadius.circular(24),
 

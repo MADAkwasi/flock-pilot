@@ -128,7 +128,9 @@ class NotificationAlertCard extends StatelessWidget {
                     ),
                   ),
 
-                const SizedBox(height: 10),
+                message == null
+                    ? const SizedBox(height: 3)
+                    : const SizedBox(height: 12),
 
                 // Footer
                 Row(
