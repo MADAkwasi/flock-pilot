@@ -1,3 +1,4 @@
+import 'package:flock_pilot/shared/utils/type_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,28 +22,9 @@ class NotificationAlertCard extends StatelessWidget {
   final bool isNotification;
   final String? amount;
 
-  Color _notificationColor() {
-    switch (type) {
-      case 'success':
-        return Colors.green;
-
-      case 'warning':
-        return Colors.orange;
-
-      case 'danger':
-        return Colors.red;
-
-      case 'info':
-        return Colors.blue;
-
-      default:
-        return Colors.grey;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final accentColor = _notificationColor();
+    final accentColor = statusColor(type);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 14),

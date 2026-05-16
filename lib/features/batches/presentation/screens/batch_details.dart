@@ -1,4 +1,7 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
+import 'package:flock_pilot/shared/widgets/action_card.dart';
+import 'package:flock_pilot/shared/utils/type_colors.dart';
+import 'package:flock_pilot/shared/widgets/summary_tiles.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,140 +12,6 @@ class BatchDetailScreen extends StatelessWidget {
 
   Map<String, dynamic> get batch {
     return batchData.firstWhere((item) => item['batchId'] == batchId);
-  }
-
-  Color _statusColor(String status) {
-    switch (status.toLowerCase()) {
-      case 'healthy':
-        return Colors.green;
-      case 'warning':
-        return Colors.orange;
-      case 'critical':
-        return Colors.red;
-      default:
-        return Colors.blueGrey;
-    }
-  }
-
-  Color _typeColor(String type) {
-    switch (type.toLowerCase()) {
-      case 'layers':
-        return Colors.orange;
-      case 'broilers':
-        return Colors.blue;
-      default:
-        return Colors.grey;
-    }
-  }
-
-  Widget _infoTile(
-    BuildContext context, {
-    required FaIconData icon,
-    required String label,
-    required String value,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(20),
-
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-
-            decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.12),
-
-              borderRadius: BorderRadius.circular(14),
-            ),
-
-            child: FaIcon(
-              icon,
-              size: 18,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-
-          const SizedBox(width: 14),
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label, style: Theme.of(context).textTheme.bodySmall),
-
-                const SizedBox(height: 4),
-
-                Text(
-                  value,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _actionButton(
-    BuildContext context, {
-    required FaIconData icon,
-    required String label,
-    required VoidCallback onTap,
-    required Color color,
-  }) {
-    return Expanded(
-      child: Material(
-        color: color,
-        borderRadius: BorderRadius.circular(20),
-        clipBehavior: Clip.antiAlias,
-
-        child: InkWell(
-          onTap: onTap,
-
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18),
-
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                FaIcon(icon, color: Colors.white, size: 20),
-
-                const SizedBox(height: 10),
-
-                Text(
-                  label,
-                  textAlign: TextAlign.center,
-
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   @override
@@ -198,18 +67,18 @@ class BatchDetailScreen extends StatelessWidget {
                               ),
 
                               decoration: BoxDecoration(
-                                color: _typeColor(type).withValues(alpha: 0.18),
+                                color: typeColor(type).withValues(alpha: 0.18),
 
                                 borderRadius: BorderRadius.circular(30),
 
-                                border: Border.all(color: _typeColor(type)),
+                                border: Border.all(color: typeColor(type)),
                               ),
 
                               child: Text(
                                 type.toUpperCase(),
 
                                 style: TextStyle(
-                                  color: _typeColor(type),
+                                  color: typeColor(type),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
                                 ),
@@ -225,20 +94,20 @@ class BatchDetailScreen extends StatelessWidget {
                               ),
 
                               decoration: BoxDecoration(
-                                color: _statusColor(
+                                color: statusColor(
                                   status,
                                 ).withValues(alpha: 0.18),
 
                                 borderRadius: BorderRadius.circular(30),
 
-                                border: Border.all(color: _statusColor(status)),
+                                border: Border.all(color: statusColor(status)),
                               ),
 
                               child: Text(
                                 status,
 
                                 style: TextStyle(
-                                  color: _statusColor(status),
+                                  color: statusColor(status),
 
                                   fontWeight: FontWeight.bold,
 
@@ -295,8 +164,6 @@ class BatchDetailScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 18),
-
                   GridView(
                     shrinkWrap: true,
 
@@ -311,30 +178,42 @@ class BatchDetailScreen extends StatelessWidget {
                         ),
 
                     children: [
-                      _infoTile(
-                        context,
-                        icon: FontAwesomeIcons.dove,
+                      SummaryTiles(
+                        icon: FaIcon(
+                          FontAwesomeIcons.dove,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                         label: 'Total Birds',
                         value: batch['birds'].toString(),
                       ),
 
-                      _infoTile(
-                        context,
-                        icon: FontAwesomeIcons.calendar,
+                      SummaryTiles(
+                        icon: FaIcon(
+                          FontAwesomeIcons.calendar,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                         label: 'Age',
                         value: '${batch['ageWeeks']} Weeks',
                       ),
 
-                      _infoTile(
-                        context,
-                        icon: FontAwesomeIcons.wheatAwn,
+                      SummaryTiles(
+                        icon: FaIcon(
+                          FontAwesomeIcons.wheatAwn,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                         label: 'Feed / Day',
                         value: '${batch['feedPerDay']} kg',
                       ),
 
-                      _infoTile(
-                        context,
-                        icon: FontAwesomeIcons.egg,
+                      SummaryTiles(
+                        icon: FaIcon(
+                          FontAwesomeIcons.egg,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                         label: 'Eggs / Day',
                         value: '${batch['eggsPerDay']}',
                       ),
@@ -351,55 +230,33 @@ class BatchDetailScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 18),
+                  GridView(
+                    shrinkWrap: true,
 
-                  Row(
-                    children: [
-                      _actionButton(
-                        context,
-                        icon: FontAwesomeIcons.egg,
-                        label: 'Record Eggs',
-                        color: const Color(0xFF2B7FFF),
-                        onTap: () {},
-                      ),
+                    physics: const NeverScrollableScrollPhysics(),
 
-                      const SizedBox(width: 12),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 14,
+                          childAspectRatio: 1.5,
+                        ),
 
-                      _actionButton(
-                        context,
-                        icon: FontAwesomeIcons.wheatAwn,
-                        label: 'Add Feed',
-                        color: const Color(0xFF00C853),
-                        onTap: () {},
-                      ),
-                    ],
+                    children: batchQuickActions
+                        .map(
+                          (action) => ActionCard(
+                            icon: FaIcon(
+                              action['icon'],
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            label: action['label'],
+                            color: action['color'],
+                            onTap: () {},
+                          ),
+                        )
+                        .toList(),
                   ),
-
-                  const SizedBox(height: 12),
-
-                  Row(
-                    children: [
-                      _actionButton(
-                        context,
-                        icon: FontAwesomeIcons.syringe,
-                        label: 'Vaccination',
-                        color: const Color(0xFFFF9800),
-                        onTap: () {},
-                      ),
-
-                      const SizedBox(width: 12),
-
-                      _actionButton(
-                        context,
-                        icon: FontAwesomeIcons.skull,
-                        label: 'Mortality',
-                        color: const Color(0xFF8B1E1E),
-                        onTap: () {},
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 30),
 
                   Container(
                     padding: const EdgeInsets.all(18),
