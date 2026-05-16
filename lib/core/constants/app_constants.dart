@@ -291,6 +291,7 @@ final List<Map<String, dynamic>> batchQuickActions = [
     "icon": FontAwesomeIcons.syringe,
     "label": 'Schedule Vaccination',
     "color": const Color(0xFFFF9800),
+    "route": RouteNames.vaccination,
   },
   {
     "icon": FontAwesomeIcons.skull,

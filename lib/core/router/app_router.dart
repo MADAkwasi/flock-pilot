@@ -6,6 +6,7 @@ import 'package:flock_pilot/features/auth/presentation/screens/registration_scre
 import 'package:flock_pilot/features/batches/presentation/screens/batch_details_screen.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/batches_screen.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/record_eggs_screen.dart';
+import 'package:flock_pilot/features/batches/presentation/screens/vaccination_screen.dart';
 import 'package:flock_pilot/features/feed/presentation/screen/feed_management_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/home_screen.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_1.dart';
@@ -46,6 +47,11 @@ class AppRouter {
       GoRoute(
         path: RouteNames.recordEggs,
         builder: (context, state) => const RecordEggsScreen(),
+      ),
+
+      GoRoute(
+        path: RouteNames.vaccination,
+        builder: (context, state) => const VaccinationScreen(),
       ),
 
       GoRoute(
