@@ -9,6 +9,7 @@ import 'package:flock_pilot/shared/widgets/notification_alert_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/stat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -123,16 +124,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: actionCards
                     .map(
-                      (action) => ActionCard(
-                        onTap: () {},
-                        color: action['cardColor'],
-                        icon: FaIcon(
-                          action['icon'],
-                          color: Colors.white,
-                          size: 24,
+                      (action) => Expanded(
+                        child: ActionCard(
+                          onTap: () => context.push(action['route']),
+                          color: action['cardColor'],
+                          icon: FaIcon(
+                            action['icon'],
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                          label: action['actionLabel'],
+                          textPosition: CardTextPosition.bottom,
                         ),
-                        label: action['actionLabel'],
-                        textPosition: CardTextPosition.bottom,
                       ),
                     )
                     .toList(),

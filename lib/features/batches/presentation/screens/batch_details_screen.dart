@@ -4,6 +4,7 @@ import 'package:flock_pilot/shared/utils/type_colors.dart';
 import 'package:flock_pilot/shared/widgets/summary_tiles.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class BatchDetailScreen extends StatelessWidget {
   const BatchDetailScreen({required this.batchId, super.key});
@@ -13,6 +14,22 @@ class BatchDetailScreen extends StatelessWidget {
   Map<String, dynamic> get batch {
     return batchData.firstWhere((item) => item['batchId'] == batchId);
   }
+
+  List<Map<String, dynamic>> get filteredActions {
+    return batchQuickActions.where((action) {
+      if (batch['type'] == 'broiler' &&
+          action['label'].toString().contains('Eggs')) {
+        return false;
+      }
+      return true;
+    }).toList();
+  }
+
+  bool get isOdd => filteredActions.length % 2 != 0;
+
+  List<Map<String, dynamic>> get gridItems => isOdd
+      ? filteredActions.sublist(0, filteredActions.length - 1)
+      : filteredActions;
 
   @override
   Widget build(BuildContext context) {
@@ -230,21 +247,21 @@ class BatchDetailScreen extends StatelessWidget {
                     ),
                   ),
 
-                  GridView(
-                    shrinkWrap: true,
-
-                    physics: const NeverScrollableScrollPhysics(),
-
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 14,
-                          childAspectRatio: 1.5,
-                        ),
-
-                    children: batchQuickActions
-                        .map(
-                          (action) => ActionCard(
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GridView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 14,
+                              mainAxisSpacing: 14,
+                              childAspectRatio: 1.5,
+                            ),
+                        children: gridItems.map((action) {
+                          return ActionCard(
                             icon: FaIcon(
                               action['icon'],
                               color: Colors.white,
@@ -252,10 +269,27 @@ class BatchDetailScreen extends StatelessWidget {
                             ),
                             label: action['label'],
                             color: action['color'],
-                            onTap: () {},
+                            onTap: () => context.push(action["route"]),
+                          );
+                        }).toList(),
+                      ),
+
+                      if (isOdd)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: ActionCard(
+                            icon: FaIcon(
+                              filteredActions.last['icon'],
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            label: filteredActions.last['label'],
+                            color: filteredActions.last['color'],
+                            onTap: () =>
+                                context.push(filteredActions.last["route"]),
                           ),
-                        )
-                        .toList(),
+                        ),
+                    ],
                   ),
 
                   Container(

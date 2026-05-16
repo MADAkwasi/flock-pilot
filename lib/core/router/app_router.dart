@@ -3,8 +3,9 @@ import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/ai_assistant/presentation/screens/ai_chat_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/login_screen.dart';
 import 'package:flock_pilot/features/auth/presentation/screens/registration_screen.dart';
-import 'package:flock_pilot/features/batches/presentation/screens/batch_details.dart';
+import 'package:flock_pilot/features/batches/presentation/screens/batch_details_screen.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/batches_screen.dart';
+import 'package:flock_pilot/features/batches/presentation/screens/record_eggs_screen.dart';
 import 'package:flock_pilot/features/feed/presentation/screen/feed_management_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/home_screen.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_1.dart';
@@ -40,6 +41,11 @@ class AppRouter {
       GoRoute(
         path: RouteNames.aiAssistant,
         builder: (context, state) => const AiChatScreen(),
+      ),
+
+      GoRoute(
+        path: RouteNames.recordEggs,
+        builder: (context, state) => const RecordEggsScreen(),
       ),
 
       GoRoute(

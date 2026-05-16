@@ -19,12 +19,12 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
           FormInputTextField(
-            placeholder: 'Email Address',
+            label: 'Email Address',
             inputType: TextInputType.emailAddress,
             controller: emailController,
           ),
           FormInputTextField(
-            placeholder: 'Password',
+            label: 'Password',
             isHidden: true,
             controller: passwordController,
           ),
