@@ -245,3 +245,31 @@ final List<Map<String, dynamic>> feedActivities = [
     'amount': '-180kg',
   },
 ];
+
+final List<Map<String, dynamic>> settingsOptions = [
+  {
+    'icon': FontAwesomeIcons.user,
+    'title': 'Account',
+    'subtitle': 'Manage your profile details',
+  },
+  {
+    'icon': FontAwesomeIcons.bell,
+    'title': 'Notifications',
+    'subtitle': 'Alerts & reminders',
+  },
+  {
+    'icon': FontAwesomeIcons.palette,
+    'title': 'Appearance',
+    'subtitle': 'Theme & display settings',
+  },
+  {
+    'icon': FontAwesomeIcons.shield,
+    'title': 'Privacy & Security',
+    'subtitle': 'Password and security options',
+  },
+  {
+    'icon': FontAwesomeIcons.circleInfo,
+    'title': 'About FlockPilot',
+    'subtitle': 'App version & info',
+  },
+];

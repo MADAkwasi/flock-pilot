@@ -8,6 +8,7 @@ import 'package:flock_pilot/features/feed/presentation/screen/feed_management_sc
 import 'package:flock_pilot/features/home/presentation/screens/home_screen.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_1.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_2.dart';
+import 'package:flock_pilot/features/settings/presentation/screens/settings.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -98,7 +99,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: RouteNames.settings,
-                builder: (context, state) => const HomeScreen(),
+                builder: (context, state) => const SettingsScreen(),
               ),
             ],
           ),
