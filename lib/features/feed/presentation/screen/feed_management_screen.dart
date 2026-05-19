@@ -39,35 +39,41 @@ class FeedManagementScreen extends StatelessWidget {
             Row(
               spacing: 10,
               children: [
-                ActionCard(
-                  onTap: () {},
-                  icon: FaIcon(
-                    FontAwesomeIcons.plus,
-                    color: Colors.white,
-                    size: 18,
+                Expanded(
+                  child: ActionCard(
+                    onTap: () {},
+                    icon: FaIcon(
+                      FontAwesomeIcons.plus,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                    label: 'Add Feed',
+                    color: const Color(0xFF2E7D32),
                   ),
-                  label: 'Add Feed',
-                  color: const Color(0xFF2E7D32),
                 ),
-                ActionCard(
-                  onTap: () {},
-                  icon: FaIcon(
-                    FontAwesomeIcons.clipboardList,
-                    color: Colors.white,
-                    size: 18,
+                Expanded(
+                  child: ActionCard(
+                    onTap: () {},
+                    icon: FaIcon(
+                      FontAwesomeIcons.clipboardList,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                    label: 'Usage Logs',
+                    color: const Color(0xFF1565C0),
                   ),
-                  label: 'Usage Logs',
-                  color: const Color(0xFF1565C0),
                 ),
-                ActionCard(
-                  onTap: () {},
-                  icon: FaIcon(
-                    FontAwesomeIcons.triangleExclamation,
-                    color: Colors.white,
-                    size: 18,
+                Expanded(
+                  child: ActionCard(
+                    onTap: () {},
+                    icon: FaIcon(
+                      FontAwesomeIcons.triangleExclamation,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                    label: 'Low Stock',
+                    color: const Color(0xFFEF6C00),
                   ),
-                  label: 'Low Stock',
-                  color: const Color(0xFFEF6C00),
                 ),
               ],
             ),

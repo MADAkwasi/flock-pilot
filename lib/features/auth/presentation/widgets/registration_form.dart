@@ -23,25 +23,26 @@ class RegistrationForm extends StatelessWidget {
       child: Column(
         children: [
           FormInputTextField(
-            placeholder: 'First Name',
+            label: 'First Name',
             controller: firstNameController,
           ),
           FormInputTextField(
-            placeholder: 'Last Name',
+            label: 'Last Name',
             controller: lastNameController,
           ),
           FormInputTextField(
-            placeholder: 'Email Address',
+            label: 'Email Address',
             inputType: TextInputType.emailAddress,
             controller: emailController,
           ),
           FormInputTextField(
+            label: 'Password',
             placeholder: 'Password (8+ Characters)',
             isHidden: true,
             controller: passwordController,
           ),
           FormInputTextField(
-            placeholder: 'Confirm Password',
+            label: 'Confirm Password',
             isHidden: true,
             controller: confirmPasswordController,
           ),

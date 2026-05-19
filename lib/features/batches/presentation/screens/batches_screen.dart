@@ -61,7 +61,8 @@ class _BatchesScreenState extends State<BatchesScreen> {
               child: Column(
                 children: [
                   FormInputTextField(
-                    placeholder: 'Search batches...',
+                    label: 'Search Batches',
+                    placeholder: 'Find batches by name',
                     controller: searchController,
                     icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
                   ),

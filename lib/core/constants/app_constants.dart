@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final List<Map<String, dynamic>> statsData = [
@@ -38,7 +39,7 @@ final List<Map<String, dynamic>> actionCards = [
     'actionLabel': 'Record Eggs',
     'icon': FontAwesomeIcons.egg,
     'cardColor': const Color(0xFF2B7FFF),
-    // 'route': RouteNames.eggs,
+    'route': RouteNames.recordEggs,
   },
 
   {
@@ -59,7 +60,7 @@ final List<Map<String, dynamic>> actionCards = [
     'actionLabel': 'Log Mortality',
     'icon': FontAwesomeIcons.skull,
     'cardColor': const Color(0xFF5C1A1A),
-    // 'route': RouteNames.mortality,
+    'route': RouteNames.mortality,
   },
 ];
 
@@ -279,20 +280,24 @@ final List<Map<String, dynamic>> batchQuickActions = [
     "icon": FontAwesomeIcons.egg,
     "label": 'Record Eggs',
     "color": const Color(0xFF2B7FFF),
+    "route": RouteNames.recordEggs,
   },
   {
     "icon": FontAwesomeIcons.wheatAwn,
     "label": 'Add Feed Record',
     "color": const Color(0xFF00C853),
+    "route": RouteNames.recordFeed,
   },
   {
     "icon": FontAwesomeIcons.syringe,
-    "label": 'Vaccination',
+    "label": 'Schedule Vaccination',
     "color": const Color(0xFFFF9800),
+    "route": RouteNames.vaccination,
   },
   {
     "icon": FontAwesomeIcons.skull,
-    "label": 'Mortality',
+    "label": 'Record Mortality',
     "color": const Color(0xFF8B1E1E),
+    "route": RouteNames.mortality,
   },
 ];
