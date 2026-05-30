@@ -9,6 +9,7 @@ import 'package:flock_pilot/features/batches/presentation/screens/feed_record_fo
 import 'package:flock_pilot/features/batches/presentation/screens/mortality_form.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/record_eggs_screen.dart';
 import 'package:flock_pilot/features/batches/presentation/screens/vaccination_screen.dart';
+import 'package:flock_pilot/features/feed/presentation/screen/feed_detail_screen.dart';
 import 'package:flock_pilot/features/feed/presentation/screen/feed_management_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/home_screen.dart';
 import 'package:flock_pilot/features/onboarding/presentation/screens/welcome_screen_1.dart';
@@ -72,6 +73,15 @@ class AppRouter {
           final batchId = state.pathParameters['batchId'];
 
           return BatchDetailScreen(batchId: batchId!);
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.feedDetails,
+        builder: (context, state) {
+          final feedId = state.pathParameters['feedId'];
+
+          return FeedDetailScreen(feedId: feedId!);
         },
       ),
 

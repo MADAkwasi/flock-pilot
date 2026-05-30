@@ -2,12 +2,15 @@ import 'package:flock_pilot/shared/utils/type_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+enum TimeAlignment { top, bottom }
+
 class NotificationAlertCard extends StatelessWidget {
   const NotificationAlertCard({
     required this.title,
     this.message,
     this.amount,
     this.isNotification = true,
+    this.timeAlign = TimeAlignment.bottom,
     required this.time,
     required this.type,
     required this.icon,
@@ -21,6 +24,7 @@ class NotificationAlertCard extends StatelessWidget {
   final FaIconData icon;
   final bool isNotification;
   final String? amount;
+  final TimeAlignment timeAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -115,24 +119,25 @@ class NotificationAlertCard extends StatelessWidget {
                     : const SizedBox(height: 12),
 
                 // Footer
-                Row(
-                  children: [
-                    const FaIcon(
-                      FontAwesomeIcons.clock,
-                      size: 12,
-                      color: Colors.grey,
-                    ),
+                if (timeAlign == TimeAlignment.bottom)
+                  Row(
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.clock,
+                        size: 12,
+                        color: Colors.grey,
+                      ),
 
-                    const SizedBox(width: 6),
+                      const SizedBox(width: 6),
 
-                    Text(
-                      time,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelMedium?.copyWith(color: Colors.grey),
-                    ),
-                  ],
-                ),
+                      Text(
+                        time,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.labelMedium?.copyWith(color: Colors.grey),
+                      ),
+                    ],
+                  ),
               ],
             ),
           ),
@@ -145,6 +150,9 @@ class NotificationAlertCard extends StatelessWidget {
                 color: const Color(0xFF2E7D32),
               ),
             ),
+
+          if (timeAlign == TimeAlignment.top)
+            Text(time, style: Theme.of(context).textTheme.bodySmall),
         ],
       ),
     );

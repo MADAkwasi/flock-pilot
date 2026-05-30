@@ -9,6 +9,7 @@ class FeedCard extends StatelessWidget {
     required this.usagePerDay,
     required this.remainingKg,
     required this.stockPercentage,
+    required this.onTap,
     super.key,
   });
 
@@ -18,6 +19,7 @@ class FeedCard extends StatelessWidget {
   final int usagePerDay;
   final int remainingKg;
   final int stockPercentage;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class FeedCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(18),
           child: Column(
