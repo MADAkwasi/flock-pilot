@@ -1,10 +1,12 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
+import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/feed/presentation/widgets/feed_card.dart';
 import 'package:flock_pilot/features/feed/presentation/widgets/feed_summary_card.dart';
 import 'package:flock_pilot/shared/widgets/action_card.dart';
 import 'package:flock_pilot/shared/widgets/notification_alert_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class FeedManagementScreen extends StatelessWidget {
   const FeedManagementScreen({super.key});
@@ -98,6 +100,12 @@ class FeedManagementScreen extends StatelessWidget {
 
             ...feedInventory.map(
               (feed) => FeedCard(
+                onTap: () => context.push(
+                  RouteNames.feedDetails.replaceFirst(
+                    ':feedId',
+                    feed['feedId'],
+                  ),
+                ),
                 isLowStock: feed['remainingKg'] < 300,
                 feedName: feed['feedName'],
                 batch: feed['batch'],

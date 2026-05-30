@@ -207,25 +207,69 @@ final List<Map<String, dynamic>> batchData = [
 
 final List<Map<String, dynamic>> feedInventory = [
   {
-    'feedName': 'Starter Mash',
-    'batch': 'Broiler Batch B',
-    'remainingKg': 240,
-    'usagePerDay': 48,
-    'stockPercentage': 24,
+    "feedId": "FD-001",
+    "feedName": "Starter Mash",
+    "type": "Broiler",
+
+    // Inventory
+    "batch": "Broiler Batch B",
+    "remainingKg": 240,
+    "usagePerDay": 48,
+    "stockPercentage": 24,
+    "status": "Low Stock",
+
+    // Details
+    "price": 320,
+    "supplier": "AgroFeed Ghana",
+    "lastRestock": "12 May 2026",
+
+    // Description
+    "description":
+        "High-protein starter feed formulated to support rapid broiler growth during early development.",
   },
+
   {
-    'feedName': 'Layer Concentrate',
-    'batch': 'Layer Batch A',
-    'remainingKg': 760,
-    'usagePerDay': 62,
-    'stockPercentage': 78,
+    "feedId": "FD-002",
+    "feedName": "Layer Concentrate",
+    "type": "Layer",
+
+    // Inventory
+    "batch": "Layer Batch A",
+    "remainingKg": 760,
+    "usagePerDay": 62,
+    "stockPercentage": 78,
+    "status": "In Stock",
+
+    // Details
+    "price": 410,
+    "supplier": "PoultryCare Ltd",
+    "lastRestock": "08 May 2026",
+
+    // Description
+    "description":
+        "Nutrient-rich concentrate designed to improve egg production and shell quality in layers.",
   },
+
   {
-    'feedName': 'Grower Feed',
-    'batch': 'Starter Batch D',
-    'remainingKg': 530,
-    'usagePerDay': 38,
-    'stockPercentage': 54,
+    "feedId": "FD-003",
+    "feedName": "Grower Feed",
+    "type": "Broiler",
+
+    // Inventory
+    "batch": "Starter Batch D",
+    "remainingKg": 530,
+    "usagePerDay": 38,
+    "stockPercentage": 54,
+    "status": "Moderate",
+
+    // Details
+    "price": 295,
+    "supplier": "FarmMix Ghana",
+    "lastRestock": "10 May 2026",
+
+    // Description
+    "description":
+        "Balanced grower feed optimized for healthy weight gain and efficient feed conversion.",
   },
 ];
 

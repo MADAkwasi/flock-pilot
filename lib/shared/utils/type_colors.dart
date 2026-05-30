@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 Color statusColor(String status) {
   switch (status.toLowerCase()) {
-    case 'healthy' || 'success' || 'active':
+    case 'healthy' || 'success' || 'active' || "in stock":
       return Colors.green;
-    case 'warning' || 'monitoring':
+    case 'warning' || 'monitoring' || 'low stock':
       return Colors.orange;
-    case 'critical':
+    case 'critical' || 'out of stock':
       return Colors.red;
     case 'info':
       return Colors.blue;
