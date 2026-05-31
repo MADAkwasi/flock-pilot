@@ -1,34 +1,37 @@
+import 'package:flock_pilot/core/api/api_exception.dart';
 import 'package:flock_pilot/data/auth_repository.dart';
 import 'package:flock_pilot/state/auth_state.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepository repo;
+  final AuthRepository _repo;
 
-  AuthNotifier(this.repo) : super(AuthState());
+  AuthNotifier(this._repo) : super(AuthState());
 
-  Future<void> checkAuth() async {
-    state = state.copyWith(isLoading: true);
+  Future<void> login({required String email, required String password}) async {
+    try {
+      state = state.copyWith(isLoading: true, error: null);
 
-    final user = await repo.getCurrentUser();
+      final res = await _repo.login(email, password);
 
-    if (user != null) {
-      state = AuthState(isAuthenticated: true, user: user);
-    } else {
-      state = AuthState(isAuthenticated: false);
+      state = state.copyWith(
+        isLoading: false,
+        isAuthenticated: true,
+        user: res.user,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        isAuthenticated: false,
+        user: null,
+        error: e is ApiException ? e.message : e.toString(),
+      );
     }
   }
 
-  Future<void> login(String email, String password) async {
-    state = state.copyWith(isLoading: true);
-
-    final result = await repo.login(email, password);
-
-    state = AuthState(isAuthenticated: true, user: result.user);
-  }
-
   Future<void> logout() async {
-    await repo.logout();
-    state = AuthState(isAuthenticated: false);
+    await _repo.logout();
+
+    state = AuthState(isAuthenticated: false, user: null, isLoading: false);
   }
 }

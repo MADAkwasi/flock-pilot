@@ -8,6 +8,7 @@ class FormInputTextField extends StatelessWidget {
     this.isHidden,
     this.inputType,
     this.icon,
+    this.validator,
     this.maxLines = 1,
     super.key,
   });
@@ -19,6 +20,7 @@ class FormInputTextField extends StatelessWidget {
   final bool? isHidden;
   final TextEditingController controller;
   final Icon? icon;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class FormInputTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         maxLines: maxLines,
+        validator: validator,
         decoration: InputDecoration(
           hintText: placeholder,
           labelText: label,

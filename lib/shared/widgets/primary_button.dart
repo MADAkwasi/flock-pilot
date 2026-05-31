@@ -11,7 +11,7 @@ class PrimaryButton extends StatelessWidget {
 
   final Icon? icon;
   final String label;
-  final VoidCallback handlePress;
+  final VoidCallback? handlePress;
   final Color? bgColor;
 
   @override

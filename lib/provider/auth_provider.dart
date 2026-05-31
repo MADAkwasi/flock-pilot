@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flock_pilot/core/api/api_client.dart';
 import 'package:flock_pilot/core/api/auth_api.dart';
 import 'package:flock_pilot/core/services/auth/auth_notifier.dart';
@@ -29,4 +31,14 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   return AuthNotifier(ref.read(authRepositoryProvider));
+});
+
+final authStateStreamProvider = StreamProvider<AuthState>((ref) async* {
+  final controller = StreamController<AuthState>();
+
+  ref.listen<AuthState>(authProvider, (prev, next) {
+    controller.add(next);
+  });
+
+  yield* controller.stream;
 });
