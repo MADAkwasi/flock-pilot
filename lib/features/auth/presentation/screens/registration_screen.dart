@@ -1,16 +1,25 @@
 import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/core/theme/app_colors.dart';
 import 'package:flock_pilot/features/auth/presentation/widgets/registration_form.dart';
+import 'package:flock_pilot/provider/auth_provider.dart';
+import 'package:flock_pilot/shared/utils/toast.dart';
 import 'package:flock_pilot/shared/widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends ConsumerWidget {
   const RegistrationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(authProvider, (prev, next) {
+      if (next.error != null && next.error != prev?.error) {
+        ToastUtils.error(context, next.error!);
+      }
+    });
+
     return Scaffold(
       body: SafeArea(
         child: Padding(

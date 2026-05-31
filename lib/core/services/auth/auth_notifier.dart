@@ -29,6 +29,28 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
+  Future<void> register(String name, String email, String password) async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      final res = await _repo.register(name, email, password);
+
+      state = state.copyWith(
+        isLoading: false,
+        isAuthenticated: true,
+        user: res.user,
+        error: null,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        isAuthenticated: false,
+        user: null,
+        error: e is ApiException ? e.message : e.toString(),
+      );
+    }
+  }
+
   Future<void> logout() async {
     await _repo.logout();
 

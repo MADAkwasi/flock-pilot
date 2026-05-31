@@ -12,7 +12,7 @@ class RecordEggsScreen extends StatefulWidget {
 }
 
 class _RecordEggsScreenState extends State<RecordEggsScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _recordEggFormKey = GlobalKey<FormState>();
 
   final TextEditingController traysController = TextEditingController();
   final TextEditingController brokenEggsController = TextEditingController();
@@ -30,7 +30,7 @@ class _RecordEggsScreenState extends State<RecordEggsScreen> {
         padding: const EdgeInsets.all(20),
 
         child: Form(
-          key: _formKey,
+          key: _recordEggFormKey,
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

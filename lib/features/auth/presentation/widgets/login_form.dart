@@ -1,11 +1,8 @@
 import 'package:flock_pilot/provider/auth_provider.dart';
-import 'package:flock_pilot/shared/utils/toast.dart';
 import 'package:flock_pilot/shared/widgets/form_input_text_field.dart';
 import 'package:flock_pilot/shared/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final _formKey = GlobalKey<FormState>();
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
@@ -15,6 +12,7 @@ class LoginForm extends ConsumerStatefulWidget {
 }
 
 class _LoginFormState extends ConsumerState<LoginForm> {
+  final _loginFormKey = GlobalKey<FormState>();
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
 
@@ -23,12 +21,6 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
-
-    ref.listenManual(authProvider, (prev, next) {
-      if (next.error != null && next.error != prev?.error) {
-        ToastUtils.error(context, next.error!);
-      }
-    });
   }
 
   @override
@@ -39,7 +31,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
   }
 
   Future<void> handleLogin() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_loginFormKey.currentState!.validate()) return;
 
     await ref
         .read(authProvider.notifier)
@@ -54,7 +46,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     final authState = ref.watch(authProvider);
 
     return Form(
-      key: _formKey,
+      key: _loginFormKey,
       child: Column(
         children: [
           FormInputTextField(
@@ -95,7 +87,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
           const SizedBox(height: 20),
 
           PrimaryButton(
-            label: authState.isLoading ? 'Logging in...' : 'Login',
+            label: 'Login',
+            isLoading: authState.isLoading,
             handlePress: authState.isLoading ? null : handleLogin,
           ),
 

@@ -37,9 +37,15 @@ class AuthApi {
   }) async {
     try {
       final res = await dio.post(
-        '/auth/register',
+        '/auth/signup',
         data: {'name': name, 'email': email, 'password': password},
       );
+
+      final data = res.data;
+
+      if (data['token'] == null) {
+        throw throw ApiException(data['message'] ?? 'Registration failed');
+      }
 
       return AuthResponseModel.fromJson(res.data);
     } on DioException catch (e) {

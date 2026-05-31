@@ -5,6 +5,7 @@ class SecondaryButton extends StatelessWidget {
   const SecondaryButton({
     required this.label,
     required this.handlePress,
+    this.isLoading = false,
     this.color = AppColors.primary,
     this.icon,
     super.key,
@@ -14,6 +15,7 @@ class SecondaryButton extends StatelessWidget {
   final Icon? icon;
   final Color color;
   final VoidCallback handlePress;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,13 @@ class SecondaryButton extends StatelessWidget {
           onPressed: handlePress,
           icon: icon,
 
-          label: Text(label),
+          label: isLoading
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Text(label),
         ),
       ),
     );

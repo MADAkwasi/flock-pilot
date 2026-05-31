@@ -1,12 +1,15 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
 import 'package:flock_pilot/features/settings/presentation/widgets/settings_tile.dart';
+import 'package:flock_pilot/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -77,11 +80,18 @@ class SettingsScreen extends StatelessWidget {
               ),
               child: ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
-                title: const Text(
-                  'Logout',
-                  style: TextStyle(color: Colors.red),
-                ),
-                onTap: () {},
+                title: authState.isLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Logout', style: TextStyle(color: Colors.red)),
+                onTap: authState.isLoading
+                    ? null
+                    : () async {
+                        await ref.read(authProvider.notifier).logout();
+                      },
               ),
             ),
           ],
