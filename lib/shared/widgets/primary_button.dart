@@ -5,14 +5,16 @@ class PrimaryButton extends StatelessWidget {
     required this.label,
     required this.handlePress,
     this.bgColor,
+    this.isLoading = false,
     this.icon,
     super.key,
   });
 
   final Icon? icon;
   final String label;
-  final VoidCallback handlePress;
+  final VoidCallback? handlePress;
   final Color? bgColor;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,13 @@ class PrimaryButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(backgroundColor: bgColor),
           onPressed: handlePress,
           icon: icon,
-          label: Text(label),
+          label: isLoading
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Text(label),
         ),
       ),
     );

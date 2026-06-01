@@ -1,26 +1,29 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
+import 'package:flock_pilot/provider/user_provider.dart';
 import 'package:flock_pilot/shared/widgets/action_card.dart';
 import 'package:flock_pilot/shared/enums/cards.dart';
 import 'package:flock_pilot/shared/utils/datetime.dart';
-// import 'package:flock_pilot/features/home/presentation/widgets/action_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
 import 'package:flock_pilot/shared/widgets/notification_alert_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/stat_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(currentUserProvider);
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -34,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Greeting(greetingText: getGreeting(context)),
                       Text(
-                        'Michael Darko',
+                        user!.name,
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
                     ],
@@ -44,9 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {},
                   icon: const FaIcon(FontAwesomeIcons.bell),
                 ),
-                const CircleAvatar(
+                CircleAvatar(
                   foregroundColor: Colors.white,
-                  child: Text('MD'),
+                  child: Text(
+                    '${user.name.split(' ').first[0]} ${user.name.split(' ').last[0]}',
+                  ),
                 ),
               ],
             ),
@@ -150,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: Column(
-                children: notificationsData.sublist(0, 3).map((notification) {
+                children: notificationsData.take(3).map((notification) {
                   return NotificationAlertCard(
                     title: notification["title"],
                     message: notification["message"],
