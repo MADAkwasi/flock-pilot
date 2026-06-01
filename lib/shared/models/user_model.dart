@@ -1,24 +1,31 @@
-enum UserRole { farmer, admin }
+import 'package:flock_pilot/shared/models/farm_model.dart';
 
 class UserModel {
   final String id;
-  final String email;
   final String name;
-  final UserRole role;
+  final String email;
+  final String role;
+  final List<FarmModel> farms;
 
   UserModel({
     required this.id,
-    required this.email,
     required this.name,
+    required this.email,
     required this.role,
+    required this.farms,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    final farmsJson = json['farms'];
+
     return UserModel(
       id: json['id'],
-      email: json['email'],
       name: json['name'],
-      role: json['role'] == 'ADMIN' ? UserRole.admin : UserRole.farmer,
+      email: json['email'],
+      role: json['role'],
+      farms: farmsJson is List
+          ? farmsJson.map((f) => FarmModel.fromJson(f)).toList()
+          : [],
     );
   }
 }

@@ -56,4 +56,32 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     state = AuthState(isAuthenticated: false, user: null, isLoading: false);
   }
+
+  Future<void> bootstrap() async {
+    state = state.copyWith(isLoading: true);
+
+    final token = await _repo.getStoredToken();
+
+    if (token == null) {
+      state = AuthState(isAuthenticated: false, isLoading: false);
+
+      return;
+    }
+
+    try {
+      final user = await _repo.getCurrentUser();
+
+      if (user == null) {
+        state = AuthState(isAuthenticated: false, isLoading: false);
+
+        return;
+      }
+
+      state = AuthState(isAuthenticated: true, isLoading: false, user: user);
+    } catch (_) {
+      await _repo.logout();
+
+      state = AuthState(isAuthenticated: false, isLoading: false);
+    }
+  }
 }

@@ -54,13 +54,9 @@ class AuthApi {
   }
 
   Future<UserModel> me() async {
-    try {
-      final res = await dio.get('/auth/me');
+    final res = await dio.get('/auth/me');
 
-      return UserModel.fromJson(res.data);
-    } on DioException catch (e) {
-      throw ApiException(e.response?.data['message'] ?? 'Failed to fetch user');
-    }
+    return UserModel.fromJson(res.data['data']['user']);
   }
 
   Future<void> logout() async {
