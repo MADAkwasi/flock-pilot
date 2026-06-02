@@ -1,3 +1,4 @@
+import 'package:flock_pilot/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/ai_assistant/presentation/screens/ai_chat_screen.dart';
@@ -104,6 +105,14 @@ class AppRouterConfig {
             GoRoute(
               path: RouteNames.feedManagement,
               builder: (_, _) => const FeedManagementScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RouteNames.inventory,
+              builder: (_, _) => const InventoryScreen(),
             ),
           ],
         ),
