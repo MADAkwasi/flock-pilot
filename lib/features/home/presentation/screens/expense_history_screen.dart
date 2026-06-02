@@ -33,7 +33,8 @@ class ExpenseHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final farm = ref.watch(farmProvider).farm;
-    final expenses = farm?.expenses ?? [];
+    final expenses = [...(farm?.expenses ?? [])]
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
     final flocks =
         farm?.flocks.map((flock) => {"name": flock.name, "id": flock.id}) ?? [];
     final inventoryItems =

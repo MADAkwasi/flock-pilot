@@ -29,5 +29,9 @@ class ApiClient {
         },
       ),
     );
+
+    dio.options.validateStatus = (status) {
+      return status != null && status < 300;
+    };
   }
 }
