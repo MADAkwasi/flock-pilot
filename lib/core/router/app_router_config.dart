@@ -1,3 +1,4 @@
+import 'package:flock_pilot/features/home/presentation/screens/dashboard_screen.dart';
 import 'package:flock_pilot/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -61,6 +62,11 @@ class AppRouterConfig {
     GoRoute(
       path: RouteNames.vaccination,
       builder: (_, _) => const VaccinationScreen(),
+    ),
+
+    GoRoute(
+      path: RouteNames.dashboard,
+      builder: (_, _) => const DashboardScreen(),
     ),
 
     GoRoute(

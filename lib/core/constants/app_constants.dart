@@ -43,14 +43,14 @@ final List<Map<String, dynamic>> actionCards = [
   },
 
   {
-    'actionLabel': 'Manage Deliveries',
-    'icon': FontAwesomeIcons.truck,
+    'actionLabel': 'Record Sales',
+    'icon': FontAwesomeIcons.sackDollar,
     'cardColor': const Color(0xFF03A9F4),
     // 'route': RouteNames.deliveries,
   },
 
   {
-    'actionLabel': 'View Revenue',
+    'actionLabel': 'Record Expenses',
     'icon': FontAwesomeIcons.moneyBillTrendUp,
     'cardColor': const Color(0xFF00C853),
     // 'route': RouteNames.revenue,
