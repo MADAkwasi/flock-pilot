@@ -4,11 +4,11 @@ Color statusColor(String status) {
   switch (status.toLowerCase()) {
     case 'healthy' || 'success' || 'active' || "in stock":
       return Colors.green;
-    case 'warning' || 'monitoring' || 'low stock':
+    case 'warning' || 'archived' || 'low stock':
       return Colors.orange;
     case 'critical' || 'out of stock':
       return Colors.red;
-    case 'info':
+    case 'info' || 'sold':
       return Colors.blue;
     default:
       return Colors.blueGrey;

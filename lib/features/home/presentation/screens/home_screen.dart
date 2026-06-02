@@ -1,4 +1,5 @@
 import 'package:flock_pilot/core/constants/app_constants.dart';
+import 'package:flock_pilot/provider/farm_provider.dart';
 import 'package:flock_pilot/provider/user_provider.dart';
 import 'package:flock_pilot/shared/widgets/action_card.dart';
 import 'package:flock_pilot/shared/enums/cards.dart';
@@ -23,6 +24,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(currentUserProvider);
+    final farmState = ref.watch(farmProvider);
+
+    if (farmState.isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (farmState.error != null) {
+      return Scaffold(body: Center(child: Text(farmState.error!)));
+    }
+
+    final farm = farmState.farm;
+
+    if (farm == null) {
+      return const Scaffold(body: Center(child: Text('No farm found')));
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -37,7 +53,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     children: [
                       Greeting(greetingText: getGreeting(context)),
                       Text(
-                        user!.name,
+                        user?.name ?? '',
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
                     ],
@@ -50,7 +66,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 CircleAvatar(
                   foregroundColor: Colors.white,
                   child: Text(
-                    '${user.name.split(' ').first[0]} ${user.name.split(' ').last[0]}',
+                    '${user?.name.split(' ').first[0]} ${user?.name.split(' ').last[0]}',
                   ),
                 ),
               ],
@@ -87,7 +103,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
 
                     // Carousel
-                    Carousel(),
+                    Carousel(batchData: farm.flocks),
                   ],
                 ),
               ),
