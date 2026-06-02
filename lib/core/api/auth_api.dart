@@ -21,12 +21,14 @@ class AuthApi {
       final data = res.data;
 
       if (data['token'] == null) {
-        throw throw ApiException(data['message'] ?? 'Login failed');
+        throw throw ApiException(message: data['message'] ?? 'Login failed');
       }
 
       return AuthResponseModel.fromJson(data);
     } on DioException catch (e) {
-      throw throw ApiException(e.response?.data['message'] ?? 'Login failed');
+      throw throw ApiException(
+        message: e.response?.data['message'] ?? 'Login failed',
+      );
     }
   }
 
@@ -44,12 +46,16 @@ class AuthApi {
       final data = res.data;
 
       if (data['token'] == null) {
-        throw throw ApiException(data['message'] ?? 'Registration failed');
+        throw throw ApiException(
+          message: data['message'] ?? 'Registration failed',
+        );
       }
 
       return AuthResponseModel.fromJson(res.data);
     } on DioException catch (e) {
-      throw ApiException(e.response?.data['message'] ?? 'Registration failed');
+      throw ApiException(
+        message: e.response?.data['message'] ?? 'Registration failed',
+      );
     }
   }
 
@@ -63,7 +69,9 @@ class AuthApi {
     try {
       await dio.post('/auth/logout');
     } on DioException catch (e) {
-      throw ApiException(e.response?.data['message'] ?? 'Logout failed');
+      throw ApiException(
+        message: e.response?.data['message'] ?? 'Logout failed',
+      );
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flock_pilot/core/api/api_client.dart';
 import 'package:flock_pilot/core/api/auth_api.dart';
 import 'package:flock_pilot/core/services/auth/auth_notifier.dart';
 import 'package:flock_pilot/data/auth_repository.dart';
+import 'package:flock_pilot/provider/farm_provider.dart';
 import 'package:flock_pilot/shared/utils/token_storage.dart';
 import 'package:flock_pilot/state/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,9 +31,8 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 });
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  return AuthNotifier(ref.read(authRepositoryProvider));
+  return AuthNotifier(ref.read(authRepositoryProvider), ref);
 });
-
 final authStateStreamProvider = StreamProvider<AuthState>((ref) async* {
   final controller = StreamController<AuthState>();
 
@@ -41,4 +41,18 @@ final authStateStreamProvider = StreamProvider<AuthState>((ref) async* {
   });
 
   yield* controller.stream;
+});
+
+final bootstrapFarmLoaderProvider = Provider<void>((ref) {
+  final authState = ref.watch(authProvider);
+
+  final user = authState.user;
+
+  if (authState.isAuthenticated && user != null && user.farms.isNotEmpty) {
+    final firstFarmId = user.farms.first.id;
+
+    Future.microtask(() {
+      ref.read(farmProvider.notifier).loadFarm(firstFarmId);
+    });
+  }
 });

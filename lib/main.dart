@@ -19,8 +19,10 @@ class _MainAppState extends ConsumerState<MainApp> {
   void initState() {
     super.initState();
 
-    Future.microtask(() {
-      ref.read(authProvider.notifier).bootstrap();
+    Future.microtask(() async {
+      final authNotifier = ref.read(authProvider.notifier);
+
+      await authNotifier.bootstrap();
     });
   }
 

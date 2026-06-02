@@ -132,10 +132,10 @@ class _AppShellState extends State<AppShell> {
             label: 'Feed',
           ),
 
-          // NavigationDestination(
-          //   icon: FaIcon(FontAwesomeIcons.solidTruck),
-          //   label: 'Inventory',
-          // ),
+          NavigationDestination(
+            icon: FaIcon(FontAwesomeIcons.boxesStacked),
+            label: 'Inventory',
+          ),
 
           NavigationDestination(
             icon: FaIcon(FontAwesomeIcons.gear),

@@ -7,6 +7,8 @@ class RouteNames {
 
   static const home = '/home';
   static const batches = '/batches';
+  static const inventory = '/inventory';
+  static const dashboard = '/dashboard';
   static const recordEggs = '/record-eggs';
   static const feedManagement = '/feed-management';
   static const settings = '/settings';

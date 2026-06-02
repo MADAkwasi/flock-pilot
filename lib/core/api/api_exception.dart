@@ -1,7 +1,8 @@
 class ApiException implements Exception {
   final String message;
+  final StackTrace? stackTrace;
 
-  ApiException(this.message);
+  ApiException({required this.message, this.stackTrace});
 
   @override
   String toString() => message;

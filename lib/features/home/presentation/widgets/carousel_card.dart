@@ -1,9 +1,12 @@
+import 'package:flock_pilot/shared/models/flock_model.dart';
+import 'package:flock_pilot/shared/utils/datetime.dart';
+import 'package:flock_pilot/shared/utils/type_colors.dart';
 import 'package:flutter/material.dart';
 
 class CarouselCard extends StatelessWidget {
   const CarouselCard({required this.batch, super.key});
 
-  final Map<String, dynamic> batch;
+  final FlockModel batch;
 
   Widget _stat(String icon, String value) {
     return Column(
@@ -19,19 +22,6 @@ class CarouselCard extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Color _statusColor(String status) {
-    switch (status.toLowerCase()) {
-      case "healthy":
-        return Colors.green;
-      case "active":
-        return Colors.blue;
-      case "monitoring":
-        return Colors.orange;
-      default:
-        return Colors.grey;
-    }
   }
 
   @override
@@ -50,7 +40,7 @@ class CarouselCard extends StatelessWidget {
             children: [
               // Batch name
               Text(
-                batch["batchName"],
+                batch.name,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -67,14 +57,14 @@ class CarouselCard extends StatelessWidget {
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: _statusColor(batch["status"]).withValues(alpha: 0.2),
+                  color: statusColor(batch.status).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: _statusColor(batch["status"])),
+                  border: Border.all(color: statusColor(batch.status)),
                 ),
                 child: Text(
-                  batch["status"],
+                  batch.status,
                   style: TextStyle(
-                    color: _statusColor(batch["status"]),
+                    color: statusColor(batch.status),
                     fontSize: 12,
                   ),
                 ),
@@ -86,11 +76,10 @@ class CarouselCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _stat("🐔", "${batch["birds"]}"),
-                  _stat("📅", "${batch["ageWeeks"]}w"),
-                  _stat("🌾", "${batch["feedPerDay"]}kg"),
-                  if (batch["eggsPerDay"] > 0)
-                    _stat("🥚", "${batch["eggsPerDay"]}"),
+                  _stat("🐔", "${batch.currentCount}"),
+                  _stat("📅", formatFlockAge(batch.startDate)),
+                  _stat("🌾", "${batch.feedConsumed.toStringAsFixed(2)}kg"),
+                  if (batch.eggsLaid > 0) _stat("🥚", "${batch.eggsLaid}"),
                 ],
               ),
             ],
