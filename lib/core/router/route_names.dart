@@ -9,6 +9,8 @@ class RouteNames {
   static const batches = '/batches';
   static const inventory = '/inventory';
   static const dashboard = '/dashboard';
+  static const sales = '/sales';
+  static const expenses = '/expenses';
   static const recordEggs = '/record-eggs';
   static const feedManagement = '/feed-management';
   static const settings = '/settings';
