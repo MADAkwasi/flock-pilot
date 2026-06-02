@@ -11,6 +11,7 @@ class RouteNames {
   static const dashboard = '/dashboard';
   static const sales = '/sales';
   static const expenses = '/expenses';
+  static const expenseHistory = '/expense-history';
   static const recordEggs = '/record-eggs';
   static const feedManagement = '/feed-management';
   static const settings = '/settings';

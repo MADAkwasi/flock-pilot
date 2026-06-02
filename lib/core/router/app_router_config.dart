@@ -1,4 +1,5 @@
 import 'package:flock_pilot/features/home/presentation/screens/dashboard_screen.dart';
+import 'package:flock_pilot/features/home/presentation/screens/expense_history_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/expense_screen.dart';
 import 'package:flock_pilot/features/home/presentation/screens/sales_screen.dart';
 import 'package:flock_pilot/features/inventory/presentation/screens/inventory_screen.dart';
@@ -71,6 +72,11 @@ class AppRouterConfig {
     GoRoute(
       path: RouteNames.expenses,
       builder: (_, _) => const ExpenseScreen(),
+    ),
+
+    GoRoute(
+      path: RouteNames.expenseHistory,
+      builder: (_, _) => const ExpenseHistoryScreen(),
     ),
 
     GoRoute(
