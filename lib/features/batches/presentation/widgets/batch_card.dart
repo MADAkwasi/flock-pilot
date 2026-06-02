@@ -1,16 +1,18 @@
+import 'package:flock_pilot/shared/models/flock_model.dart';
+import 'package:flock_pilot/shared/utils/datetime.dart';
 import 'package:flock_pilot/shared/utils/type_colors.dart';
 import 'package:flutter/material.dart';
 
 class BatchCard extends StatelessWidget {
   const BatchCard({required this.batch, required this.onTap, super.key});
 
-  final Map<String, dynamic> batch;
+  final FlockModel batch;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final status = batch["status"];
-    final type = batch["type"];
+    final status = batch.status;
+    final type = batch.flockType;
 
     return Card(
       elevation: 2,
@@ -37,7 +39,7 @@ class BatchCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      batch["batchName"],
+                      batch.name,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -95,11 +97,14 @@ class BatchCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _statItem("Birds", batch["birds"].toString()),
-                  _statItem("Age", "${batch["ageWeeks"]}w"),
-                  _statItem("Feed", "${batch["feedPerDay"]}kg"),
-                  if (batch["eggsPerDay"] > 0)
-                    _statItem("Eggs", batch["eggsPerDay"].toString()),
+                  _statItem("Birds", batch.currentCount.toString()),
+                  _statItem("Age", formatFlockAge(batch.startDate)),
+                  _statItem(
+                    "Feed",
+                    "${batch.feedConsumed.toStringAsFixed(2)}kg",
+                  ),
+                  if (batch.eggsLaid > 0)
+                    _statItem("Eggs", batch.eggsLaid.toString()),
                 ],
               ),
             ],
@@ -111,7 +116,7 @@ class BatchCard extends StatelessWidget {
 
   Widget _statItem(String label, String value) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           value,

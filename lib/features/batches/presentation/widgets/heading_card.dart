@@ -1,7 +1,10 @@
+import 'package:flock_pilot/shared/models/flock_model.dart';
 import 'package:flutter/material.dart';
 
 class HeadingCard extends StatelessWidget {
-  const HeadingCard({super.key});
+  const HeadingCard({required this.batches, super.key});
+
+  final List<FlockModel> batches;
 
   Widget _miniStat(BuildContext context, String label, String value) {
     return Column(
@@ -80,7 +83,12 @@ class HeadingCard extends StatelessWidget {
                     const SizedBox(height: 6),
 
                     Text(
-                      '1,230',
+                      batches
+                          .fold<int>(
+                            0,
+                            (sum, batch) => sum + batch.currentCount,
+                          )
+                          .toString(),
                       style: Theme.of(context).textTheme.headlineMedium
                           ?.copyWith(
                             color: Colors.white,
@@ -121,8 +129,22 @@ class HeadingCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _miniStat(context, 'Broilers', '600'),
-                _miniStat(context, 'Layers', '630'),
+                _miniStat(
+                  context,
+                  'Broilers',
+                  batches
+                      .where((b) => b.flockType == "BROILER")
+                      .fold(0, (sum, b) => sum + b.currentCount)
+                      .toString(),
+                ),
+                _miniStat(
+                  context,
+                  'Layers',
+                  batches
+                      .where((b) => b.flockType == "LAYER")
+                      .fold(0, (sum, b) => sum + b.currentCount)
+                      .toString(),
+                ),
               ],
             ),
           ),

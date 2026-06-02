@@ -6,6 +6,7 @@ import 'package:flock_pilot/shared/enums/cards.dart';
 import 'package:flock_pilot/shared/utils/datetime.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/carousel.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/greeting.dart';
+import 'package:flock_pilot/features/home/presentation/widgets/farm_fallback_screen.dart';
 import 'package:flock_pilot/shared/widgets/notification_alert_card.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/stat_card.dart';
 import 'package:flutter/material.dart';
@@ -31,13 +32,29 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
 
     if (farmState.error != null) {
-      return Scaffold(body: Center(child: Text(farmState.error!)));
+      return FarmFallbackScreen(
+        title: "Something went wrong",
+        message: farmState.error!,
+        icon: FontAwesomeIcons.triangleExclamation,
+        onRetry: () {
+          ref.invalidate(farmProvider);
+        },
+      );
     }
 
     final farm = farmState.farm;
 
     if (farm == null) {
-      return const Scaffold(body: Center(child: Text('No farm found')));
+      return FarmFallbackScreen(
+        title: "No farm found",
+        message:
+            "You currently don't have a registered farm. Create one to start managing your flocks.",
+        icon: FontAwesomeIcons.tractor,
+        onRetry: () {
+          // route to create farm screen if you have one
+          // context.push('/create-farm');
+        },
+      );
     }
 
     return Scaffold(
