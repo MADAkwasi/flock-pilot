@@ -1,11 +1,9 @@
 import 'package:flock_pilot/core/router/route_names.dart';
 import 'package:flock_pilot/features/home/presentation/widgets/expense_card.dart';
+import 'package:flock_pilot/features/home/presentation/widgets/expense_form.dart';
 import 'package:flock_pilot/provider/expense_provider.dart';
 import 'package:flock_pilot/provider/farm_provider.dart';
 import 'package:flock_pilot/shared/utils/toast.dart';
-import 'package:flock_pilot/shared/widgets/dropdown_field.dart';
-import 'package:flock_pilot/shared/widgets/form_input_text_field.dart';
-import 'package:flock_pilot/shared/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -19,7 +17,7 @@ enum ExpenseCategory {
   labor,
   utilities,
   equipment,
-  transportation,
+  transport,
   maintenance,
   other,
 }
@@ -35,6 +33,7 @@ class _ExpenseScreenState extends ConsumerState<ExpenseScreen> {
   final amountController = TextEditingController();
   final quantityController = TextEditingController();
   final descriptionController = TextEditingController();
+  final _expenseFormKey = GlobalKey<FormState>();
 
   final selectedType = ValueNotifier<String?>(null);
   final selectedCategory = ValueNotifier<String?>(null);
@@ -53,19 +52,26 @@ class _ExpenseScreenState extends ConsumerState<ExpenseScreen> {
     super.dispose();
   }
 
+  String? _normalize(ValueNotifier<String?> value) {
+    return value.value?.trim().toUpperCase();
+  }
+
   // ================= CLEAN PAYLOAD BUILDER =================
   Map<String, dynamic> _buildPayload() {
+    final type = _normalize(selectedType);
+    final category = _normalize(selectedCategory);
+
     final payload = <String, dynamic>{
-      "type": selectedType.value?.toUpperCase(),
-      "category": selectedCategory.value?.toUpperCase(),
+      "type": type,
+      "category": category,
       "amount": double.tryParse(amountController.text) ?? 0,
     };
 
-    if ((selectedFlockId.value ?? "").isNotEmpty) {
+    if (selectedFlockId.value?.isNotEmpty == true) {
       payload["flockId"] = selectedFlockId.value;
     }
 
-    if ((selectedInventoryItemId.value ?? "").isNotEmpty) {
+    if (selectedInventoryItemId.value?.isNotEmpty == true) {
       payload["inventoryItemId"] = selectedInventoryItemId.value;
     }
 
@@ -127,7 +133,8 @@ class _ExpenseScreenState extends ConsumerState<ExpenseScreen> {
           const SizedBox(height: 20),
 
           // ================= FORM =================
-          _ExpenseForm(
+          ExpenseForm(
+            formKey: _expenseFormKey,
             selectedType: selectedType,
             selectedCategory: selectedCategory,
             selectedFlockId: selectedFlockId,
@@ -139,6 +146,21 @@ class _ExpenseScreenState extends ConsumerState<ExpenseScreen> {
             inventoryItems: inventoryItems,
             isLoading: expenseState.isLoading,
             onSubmit: () async {
+              if (!_expenseFormKey.currentState!.validate()) {
+                return;
+              }
+
+              final category = selectedCategory.value!.toUpperCase();
+
+              if (category == "INVENTORY" &&
+                  selectedInventoryItemId.value?.isNotEmpty != true) {
+                ToastUtils.error(
+                  context,
+                  "Inventory item is required for inventory expenses",
+                );
+                return;
+              }
+
               try {
                 await ref
                     .read(expenseControllerProvider.notifier)
@@ -187,120 +209,6 @@ class _SummaryCard extends StatelessWidget {
         "Total Expenses: GHS ${total.toStringAsFixed(2)}",
         style: Theme.of(context).textTheme.titleLarge,
       ),
-    );
-  }
-}
-
-class _ExpenseForm extends StatelessWidget {
-  final ValueNotifier<String?> selectedType;
-  final ValueNotifier<String?> selectedCategory;
-  final ValueNotifier<String?> selectedFlockId;
-  final ValueNotifier<String?> selectedInventoryItemId;
-
-  final TextEditingController amountController;
-  final TextEditingController quantityController;
-  final TextEditingController descriptionController;
-
-  final List<Map<String, String>> flocks;
-  final List<Map<String, String>> inventoryItems;
-
-  final bool isLoading;
-  final VoidCallback onSubmit;
-
-  const _ExpenseForm({
-    required this.selectedType,
-    required this.selectedCategory,
-    required this.selectedFlockId,
-    required this.selectedInventoryItemId,
-    required this.amountController,
-    required this.quantityController,
-    required this.descriptionController,
-    required this.flocks,
-    required this.inventoryItems,
-    required this.isLoading,
-    required this.onSubmit,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Record Expense", style: Theme.of(context).textTheme.titleMedium),
-
-        const SizedBox(height: 15),
-
-        DropdownField(
-          valueListenable: selectedType,
-          placeholder: "Expense Type",
-          options: ExpenseType.values
-              .map(
-                (e) =>
-                    '${e.name[0].toUpperCase()}${e.name.substring(1).toLowerCase()}',
-              )
-              .toList(),
-        ),
-
-        const SizedBox(height: 18),
-
-        DropdownField(
-          valueListenable: selectedCategory,
-          placeholder: "Category",
-          options: ExpenseCategory.values
-              .map(
-                (e) =>
-                    '${e.name[0].toUpperCase()}${e.name.substring(1).toLowerCase()}',
-              )
-              .toList(),
-        ),
-
-        const SizedBox(height: 18),
-
-        if (flocks.isNotEmpty)
-          DropdownField(
-            valueListenable: selectedFlockId,
-            placeholder: "Flock (optional)",
-            options: flocks,
-          ),
-
-        const SizedBox(height: 18),
-
-        if (inventoryItems.isNotEmpty)
-          DropdownField(
-            valueListenable: selectedInventoryItemId,
-            placeholder: "Inventory Item",
-            options: inventoryItems,
-          ),
-
-        const SizedBox(height: 8),
-
-        FormInputTextField(
-          label: "Amount",
-          controller: amountController,
-          icon: const Icon(Icons.money),
-          inputType: TextInputType.number,
-        ),
-
-        FormInputTextField(
-          label: "Quantity",
-          controller: quantityController,
-          icon: const Icon(Icons.numbers),
-        ),
-
-        FormInputTextField(
-          label: "Description",
-          controller: descriptionController,
-          icon: const Icon(Icons.note),
-        ),
-
-        const SizedBox(height: 20),
-
-        PrimaryButton(
-          label: "Record Expense",
-          isLoading: isLoading,
-          handlePress: isLoading ? null : onSubmit,
-        ),
-      ],
     );
   }
 }

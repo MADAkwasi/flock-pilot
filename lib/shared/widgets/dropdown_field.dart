@@ -5,11 +5,13 @@ class DropdownField extends StatelessWidget {
   final ValueNotifier<String?> valueListenable;
   final List<dynamic> options;
   final String placeholder;
+  final String? Function(String?)? validator;
 
   const DropdownField({
     required this.valueListenable,
     required this.placeholder,
     required this.options,
+    this.validator,
     super.key,
   });
 
@@ -47,12 +49,7 @@ class DropdownField extends StatelessWidget {
 
       valueListenable: valueListenable,
 
-      validator: (value) {
-        if (value == null) {
-          return placeholder;
-        }
-        return null;
-      },
+      validator: validator,
 
       onChanged: (value) {
         valueListenable.value = value;

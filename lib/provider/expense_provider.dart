@@ -43,7 +43,48 @@ class ExpenseController extends StateNotifier<AsyncValue<void>> {
     } catch (e, st) {
       state = AsyncValue.error(e, st);
 
-      rethrow; // 🔥 THIS IS THE MISSING PIECE
+      rethrow;
+    }
+  }
+
+  Future<void> updateExpense({
+    required String expenseId,
+    required Map<String, dynamic> payload,
+  }) async {
+    state = const AsyncValue.loading();
+
+    try {
+      final farm = ref.read(farmProvider).farm;
+      if (farm == null) throw Exception("No farm selected");
+
+      await _repo.updateExpense(
+        farmId: farm.id,
+        expenseId: expenseId,
+        payload: payload,
+      );
+
+      await ref.read(farmProvider.notifier).loadFarm(farm.id);
+
+      state = const AsyncValue.data(null);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+  }
+
+  Future<void> deleteExpense(String expenseId) async {
+    state = const AsyncValue.loading();
+
+    try {
+      final farm = ref.read(farmProvider).farm;
+      if (farm == null) throw Exception("No farm selected");
+
+      await _repo.deleteExpense(farmId: farm.id, expenseId: expenseId);
+
+      await ref.read(farmProvider.notifier).loadFarm(farm.id);
+
+      state = const AsyncValue.data(null);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
     }
   }
 }
