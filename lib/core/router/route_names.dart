@@ -23,5 +23,5 @@ class RouteNames {
 
   static const flockDetails = '/flock/:id';
 
-  static const aiAssistant = '/ai';
+  static const aiAssistant = '/ai/:farmId';
 }

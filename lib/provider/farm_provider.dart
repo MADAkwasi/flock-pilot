@@ -17,3 +17,5 @@ final farmRepositoryProvider = Provider<FarmRepository>((ref) {
 final farmProvider = StateNotifierProvider<FarmNotifier, FarmState>((ref) {
   return FarmNotifier(ref.read(farmRepositoryProvider));
 });
+
+final selectedFarmIdProvider = StateProvider<String?>((ref) => null);

@@ -1,46 +1,73 @@
+import 'package:flock_pilot/provider/ai_assistant_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AiChatScreen extends StatefulWidget {
-  const AiChatScreen({super.key});
+class AiChatScreen extends ConsumerStatefulWidget {
+  const AiChatScreen({super.key, required this.farmId});
+
+  final String farmId;
 
   @override
-  State<AiChatScreen> createState() => _AiChatScreenState();
+  ConsumerState<AiChatScreen> createState() => _AiChatScreenState();
 }
 
-class _AiChatScreenState extends State<AiChatScreen> {
+class _AiChatScreenState extends ConsumerState<AiChatScreen> {
   final TextEditingController _controller = TextEditingController();
 
-  final List<Map<String, dynamic>> messages = [
-    {
+  final List<Map<String, dynamic>> messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    messages.add({
       'isUser': false,
       'text': 'Hello 👋 I am CoopMind. How can I help your farm today?',
-    },
-    {'isUser': true, 'text': 'How many eggs should my layers produce weekly?'},
-    {
-      'isUser': false,
-      'text':
-          'On average, a healthy layer produces 5–6 eggs per week depending on breed and feed quality.',
-    },
-  ];
+    });
+  }
 
-  void _sendMessage() {
+  Future<void> _sendMessage() async {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
 
     setState(() {
       messages.add({'isUser': true, 'text': text});
-
-      messages.add({
-        'isUser': false,
-        'text': '🤖 Thinking... (AI response placeholder)',
-      });
+      messages.add({'isUser': false, 'text': 'Thinking... 🤖'});
     });
 
     _controller.clear();
+
+    try {
+      final reply = await ref
+          .read(aiChatProvider.notifier)
+          .ask(farmId: widget.farmId, message: text);
+
+      setState(() {
+        messages.removeLast(); // remove "Thinking..."
+        messages.add({'isUser': false, 'text': reply.message});
+      });
+    } catch (e) {
+      setState(() {
+        messages.removeLast();
+        messages.add({
+          'isUser': false,
+          'text': 'Failed to get response. Try again.',
+        });
+      });
+    }
   }
 
   Widget _buildMessage(Map<String, dynamic> message) {
     final isUser = message['isUser'] as bool;
+
+    // if (farmId == null) {
+    //   return FarmFallbackScreen(
+    //     title: "No farm found",
+    //     message: "Create a farm to start tracking performance.",
+    //     icon: FontAwesomeIcons.tractor,
+    //     onRetry: () {},
+    //   );
+    // }
 
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
@@ -49,13 +76,8 @@ class _AiChatScreenState extends State<AiChatScreen> {
         padding: const EdgeInsets.all(14),
         constraints: const BoxConstraints(maxWidth: 280),
         decoration: BoxDecoration(
-          color: isUser ? Colors.green.shade600 : Colors.grey.shade200,
-          borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(16),
-            topRight: const Radius.circular(16),
-            bottomLeft: Radius.circular(isUser ? 16 : 0),
-            bottomRight: Radius.circular(isUser ? 0 : 16),
-          ),
+          color: isUser ? Colors.green : Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Text(
           message['text'],
@@ -73,24 +95,10 @@ class _AiChatScreenState extends State<AiChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(aiChatProvider);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CoopMind AI'),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Hero(
-              tag: 'CoopMind_logo',
-              child: Image.asset(
-                'assets/images/flock_ai.png',
-                width: 60,
-                height: 60,
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('CoopMind AI')),
 
       body: Column(
         children: [
@@ -104,53 +112,45 @@ class _AiChatScreenState extends State<AiChatScreen> {
             ),
           ),
 
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, -2),
-                ),
-              ],
+          if (isLoading)
+            const Padding(
+              padding: EdgeInsets.all(8),
+              child: Text("AI is thinking... 🤖"),
             ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                        hintText: 'Ask CoopMind...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 10,
-                        ),
-                      ),
-                      onSubmitted: (_) => _sendMessage(),
-                    ),
-                  ),
 
-                  const SizedBox(width: 8),
+          _buildInput(),
+        ],
+      ),
+    );
+  }
 
-                  GestureDetector(
-                    onTap: _sendMessage,
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(Icons.send, color: Colors.white),
-                    ),
-                  ),
-                ],
+  Widget _buildInput() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: 'Ask CoopMind...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
+              onSubmitted: (_) => _sendMessage(),
+            ),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: _sendMessage,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.send, color: Colors.white),
             ),
           ),
         ],

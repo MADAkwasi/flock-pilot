@@ -94,7 +94,7 @@ class _SalesScreenState extends State<SalesScreen> {
                 title: Text("GHS ${sale['amount']}"),
                 subtitle: Text(sale['description'] ?? ''),
                 trailing: Text(
-                  "${sale['date'].toString().split('.')[0]}",
+                  "$sale['date'].toString().split('.')[0]",
                   style: const TextStyle(fontSize: 12),
                 ),
               ),

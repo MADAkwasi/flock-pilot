@@ -1,6 +1,9 @@
+import 'package:flock_pilot/core/api/ai_api.dart';
 import 'package:flock_pilot/core/api/api_client.dart';
 import 'package:flock_pilot/core/router/app_router.dart';
 import 'package:flock_pilot/core/theme/app_theme.dart';
+import 'package:flock_pilot/data/ai_assistant_repository.dart';
+import 'package:flock_pilot/provider/ai_assistant_provider.dart';
 import 'package:flock_pilot/provider/auth_provider.dart';
 import 'package:flock_pilot/shared/utils/token_storage.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +14,16 @@ void main() {
   final storage = TokenStorage();
   ApiClient.init(storage);
 
-  runApp(const ProviderScope(child: MainApp()));
+  runApp(
+    ProviderScope(
+      overrides: [
+        aiChatRepositoryProvider.overrideWithValue(
+          AiChatRepository(AiChatApi(ApiClient.dio)),
+        ),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class _MainAppState extends ConsumerState<MainApp> {

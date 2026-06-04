@@ -10,9 +10,7 @@ class ApiClient {
         baseUrl: 'http://10.0.2.2:8000/api/v1',
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
-        validateStatus: (status) {
-          return status != null && status < 500;
-        },
+        validateStatus: (status) => status != null && status < 500,
       ),
     );
 
@@ -30,8 +28,13 @@ class ApiClient {
       ),
     );
 
-    dio.options.validateStatus = (status) {
-      return status != null && status < 300;
-    };
+    // dio.interceptors.add(
+    //   LogInterceptor(
+    //     request: true,
+    //     requestBody: true,
+    //     responseBody: true,
+    //     error: true,
+    //   ),
+    // );
   }
 }

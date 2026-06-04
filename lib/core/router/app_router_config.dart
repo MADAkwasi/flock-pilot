@@ -44,7 +44,10 @@ class AppRouterConfig {
 
     GoRoute(
       path: RouteNames.aiAssistant,
-      builder: (_, _) => const AiChatScreen(),
+      builder: (context, state) {
+        final farmId = state.pathParameters['farmId']!;
+        return AiChatScreen(farmId: farmId);
+      },
     ),
 
     GoRoute(
