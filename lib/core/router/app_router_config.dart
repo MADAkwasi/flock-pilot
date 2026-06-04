@@ -1,4 +1,7 @@
 import 'package:flock_pilot/features/home/presentation/screens/dashboard_screen.dart';
+import 'package:flock_pilot/features/home/presentation/screens/expense_history_screen.dart';
+import 'package:flock_pilot/features/home/presentation/screens/expense_screen.dart';
+import 'package:flock_pilot/features/home/presentation/screens/sales_screen.dart';
 import 'package:flock_pilot/features/inventory/presentation/screens/inventory_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,7 +44,10 @@ class AppRouterConfig {
 
     GoRoute(
       path: RouteNames.aiAssistant,
-      builder: (_, _) => const AiChatScreen(),
+      builder: (context, state) {
+        final farmId = state.pathParameters['farmId']!;
+        return AiChatScreen(farmId: farmId);
+      },
     ),
 
     GoRoute(
@@ -62,6 +68,18 @@ class AppRouterConfig {
     GoRoute(
       path: RouteNames.vaccination,
       builder: (_, _) => const VaccinationScreen(),
+    ),
+
+    GoRoute(path: RouteNames.sales, builder: (_, _) => const SalesScreen()),
+
+    GoRoute(
+      path: RouteNames.expenses,
+      builder: (_, _) => const ExpenseScreen(),
+    ),
+
+    GoRoute(
+      path: RouteNames.expenseHistory,
+      builder: (_, _) => const ExpenseHistoryScreen(),
     ),
 
     GoRoute(

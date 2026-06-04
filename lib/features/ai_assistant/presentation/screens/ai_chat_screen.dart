@@ -1,46 +1,140 @@
+import 'package:flock_pilot/provider/ai_assistant_provider.dart';
+import 'package:flock_pilot/provider/farm_provider.dart';
+import 'package:flock_pilot/shared/models/ai_response_model.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AiChatScreen extends StatefulWidget {
-  const AiChatScreen({super.key});
+class AiChatScreen extends ConsumerStatefulWidget {
+  const AiChatScreen({super.key, required this.farmId});
+
+  final String farmId;
 
   @override
-  State<AiChatScreen> createState() => _AiChatScreenState();
+  ConsumerState<AiChatScreen> createState() => _AiChatScreenState();
 }
 
-class _AiChatScreenState extends State<AiChatScreen> {
+class _AiChatScreenState extends ConsumerState<AiChatScreen> {
   final TextEditingController _controller = TextEditingController();
 
-  final List<Map<String, dynamic>> messages = [
-    {
-      'isUser': false,
-      'text': 'Hello 👋 I am CoopMind. How can I help your farm today?',
-    },
-    {'isUser': true, 'text': 'How many eggs should my layers produce weekly?'},
-    {
-      'isUser': false,
-      'text':
-          'On average, a healthy layer produces 5–6 eggs per week depending on breed and feed quality.',
-    },
-  ];
+  String? conversationId;
 
-  void _sendMessage() {
-    final text = _controller.text.trim();
-    if (text.isEmpty) return;
+  bool isLoadingMessages = false;
 
-    setState(() {
-      messages.add({'isUser': true, 'text': text});
+  final List<ChatMessageModel> messages = [];
 
-      messages.add({
-        'isUser': false,
-        'text': '🤖 Thinking... (AI response placeholder)',
-      });
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() async {
+      final farm = ref.read(farmProvider).farm;
+
+      conversationId = farm?.activeConversationId;
+
+      if (conversationId != null) {
+        await loadMessages();
+      } else {
+        setState(() {
+          messages.add(
+            ChatMessageModel(
+              id: 'welcome',
+              role: 'ASSISTANT',
+              message:
+                  'Hello 👋 I am CoopMind. How can I help your farm today?',
+              createdAt: DateTime.now(),
+              conversationId: '',
+            ),
+          );
+        });
+      }
     });
-
-    _controller.clear();
   }
 
-  Widget _buildMessage(Map<String, dynamic> message) {
-    final isUser = message['isUser'] as bool;
+  Future<void> loadMessages() async {
+    if (conversationId == null) return;
+
+    setState(() {
+      isLoadingMessages = true;
+    });
+
+    try {
+      final data = await ref
+          .read(aiChatProvider.notifier)
+          .getMessages(farmId: widget.farmId, conversationId: conversationId!);
+
+      if (!mounted) return;
+
+      setState(() {
+        messages.clear();
+        messages.addAll(data);
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoadingMessages = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _sendMessage() async {
+    final text = _controller.text.trim();
+
+    if (text.isEmpty) return;
+
+    _controller.clear();
+
+    // optimistic user message
+    setState(() {
+      messages.add(
+        ChatMessageModel(
+          id: DateTime.now().toIso8601String(),
+          role: 'USER',
+          message: text,
+          createdAt: DateTime.now(),
+          conversationId: conversationId ?? '',
+        ),
+      );
+    });
+
+    try {
+      final response = await ref
+          .read(aiChatProvider.notifier)
+          .ask(
+            farmId: widget.farmId,
+            message: text,
+            conversationId: conversationId,
+          );
+
+      // refresh farm state so activeConversationId updates
+      await ref.read(farmProvider.notifier).loadFarm(widget.farmId);
+
+      if (!mounted) return;
+
+      setState(() {
+        // local state update
+        conversationId = response.conversationId;
+
+        messages.add(
+          ChatMessageModel(
+            id: DateTime.now().toIso8601String(),
+            role: 'ASSISTANT',
+            message: response.message,
+            createdAt: DateTime.now(),
+            conversationId: response.conversationId,
+          ),
+        );
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Widget _buildMessage(ChatMessageModel message) {
+    final isUser = message.isUser;
 
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
@@ -57,10 +151,90 @@ class _AiChatScreenState extends State<AiChatScreen> {
             bottomRight: Radius.circular(isUser ? 0 : 16),
           ),
         ),
-        child: Text(
-          message['text'],
-          style: TextStyle(color: isUser ? Colors.white : Colors.black87),
+        child: MarkdownBody(
+          data: message.message,
+          selectable: true,
+          styleSheet: MarkdownStyleSheet(
+            p: TextStyle(
+              color: isUser ? Colors.white : Colors.black87,
+              fontSize: 14,
+            ),
+
+            strong: TextStyle(
+              color: isUser ? Colors.white : Colors.black87,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildInput() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: 'Ask CoopMind...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              onSubmitted: (_) => _sendMessage(),
+            ),
+          ),
+
+          const SizedBox(width: 8),
+
+          GestureDetector(
+            onTap: _sendMessage,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.send, color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = ref.watch(aiChatProvider);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('CoopMind AI')),
+
+      body: Column(
+        children: [
+          Expanded(
+            child: isLoadingMessages
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      return _buildMessage(messages[index]);
+                    },
+                  ),
+          ),
+
+          if (isLoading)
+            const Padding(
+              padding: EdgeInsets.all(8),
+              child: Text("AI is thinking... 🤖"),
+            ),
+
+          _buildInput(),
+        ],
       ),
     );
   }
@@ -69,92 +243,5 @@ class _AiChatScreenState extends State<AiChatScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('CoopMind AI'),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Hero(
-              tag: 'CoopMind_logo',
-              child: Image.asset(
-                'assets/images/flock_ai.png',
-                width: 60,
-                height: 60,
-              ),
-            ),
-          ),
-        ],
-      ),
-
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                return _buildMessage(messages[index]);
-              },
-            ),
-          ),
-
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, -2),
-                ),
-              ],
-            ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                        hintText: 'Ask CoopMind...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 10,
-                        ),
-                      ),
-                      onSubmitted: (_) => _sendMessage(),
-                    ),
-                  ),
-
-                  const SizedBox(width: 8),
-
-                  GestureDetector(
-                    onTap: _sendMessage,
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(Icons.send, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

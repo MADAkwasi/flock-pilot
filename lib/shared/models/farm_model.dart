@@ -35,6 +35,7 @@ class FarmModel {
   final String? location;
   final String? description;
   final String ownerId;
+  final String? activeConversationId;
   final bool isActive;
   final String? farmType;
 
@@ -42,6 +43,7 @@ class FarmModel {
   final List<InventoryItemModel> inventoryItems;
   final List<ExpenseModel> expenses;
   final List<SaleModel> sales;
+  // final List<ChatMessageModel> aiLogs;
 
   FarmModel({
     required this.id,
@@ -52,6 +54,7 @@ class FarmModel {
     required this.inventoryItems,
     required this.expenses,
     required this.sales,
+    required this.activeConversationId,
     this.location,
     this.description,
     this.farmType,
@@ -66,6 +69,7 @@ class FarmModel {
       location: json['location'],
       description: json['description'],
       farmType: json['farmType'],
+      activeConversationId: json['activeConversationId'],
 
       flocks: (json['flocks'] as List? ?? [])
           .map((e) => FlockModel.fromJson(e))
