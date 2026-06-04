@@ -9,14 +9,30 @@ class AiChatApi {
   Future<AiChatResponse> askAssistant({
     required String farmId,
     required String message,
+    String? conversationId,
   }) async {
     final res = await dio.post(
       '/ai-assistant/$farmId/ask',
-      data: {"content": message},
+      data: {
+        "content": message,
+        if (conversationId != null) "conversationId": conversationId,
+      },
     );
 
-    final data = res.data;
+    return AiChatResponse.fromJson(res.data);
+  }
 
-    return AiChatResponse.fromJson(data);
+  Future<List<ChatMessageModel>> getConversationMessages({
+    required String farmId,
+    required String conversationId,
+  }) async {
+    final res = await dio.get(
+      '/ai-assistant/$farmId/conversation/$conversationId',
+    );
+
+    final messages =
+        res.data['data']?['response']?['messages'] as List<dynamic>? ?? [];
+
+    return messages.map((e) => ChatMessageModel.fromJson(e)).toList();
   }
 }

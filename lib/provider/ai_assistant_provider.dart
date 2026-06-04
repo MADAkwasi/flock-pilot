@@ -4,9 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 final aiChatRepositoryProvider = Provider<AiChatRepository>((ref) {
-  throw UnimplementedError(
-    'AiChatRepository must be overridden in main provider scope',
-  );
+  throw UnimplementedError();
 });
 
 final aiChatProvider = StateNotifierProvider<AiChatNotifier, bool>((ref) {
@@ -21,17 +19,32 @@ class AiChatNotifier extends StateNotifier<bool> {
   Future<AiChatResponse> ask({
     required String farmId,
     required String message,
+    String? conversationId,
   }) async {
     state = true;
 
     try {
       final repo = ref.read(aiChatRepositoryProvider);
 
-      final reply = await repo.askAssistant(farmId: farmId, message: message);
-
-      return reply;
+      return await repo.askAssistant(
+        farmId: farmId,
+        message: message,
+        conversationId: conversationId,
+      );
     } finally {
       state = false;
     }
+  }
+
+  Future<List<ChatMessageModel>> getMessages({
+    required String farmId,
+    required String conversationId,
+  }) async {
+    final repo = ref.read(aiChatRepositoryProvider);
+
+    return repo.getConversationMessages(
+      farmId: farmId,
+      conversationId: conversationId,
+    );
   }
 }
