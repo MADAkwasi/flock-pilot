@@ -1,19 +1,27 @@
----
 # 🐔 FlockPilot (Flutter Frontend)
 
-FlockPilot is a poultry farm management application designed to help farmers efficiently track, manage, and optimize their poultry operations. This is the **Flutter mobile frontend** that connects to the FlockPilot backend and AI services.
+FlockPilot is a **mobile poultry farm management application** built with Flutter.
+It helps farmers track flock performance, manage farm operations, and interact with an AI assistant for smart farming insights.
+
+This repository contains the **Flutter frontend**, which connects to the FlockPilot backend API.
+
+👉 Backend Repository:
+[https://github.com/MADAkwasi/flock-pilot-backend](https://github.com/MADAkwasi/flock-pilot-backend)
+
 ---
 
 ## ✨ Features
 
-- 📊 Dashboard overview of flock performance
-- 🐣 Flock management (add, update, track birds)
+- 📊 Farm dashboard with performance insights
+- 🐣 Flock management (add, update, track flocks)
 - 🥚 Egg production tracking
-- 🍗 Feed management and consumption logs
-- 📈 Analytics and insights
-- 🤖 AI assistant integration (Grok API) for smart farm recommendations
-- 🔔 Notifications for important farm events
-- 🌙 Clean, responsive UI for mobile devices
+- 🍗 Feed consumption and inventory management
+- 💰 Expense tracking
+- 📈 Analytics and farm insights
+- 🤖 AI assistant (CoopMind) powered by Groq API
+- 💬 Conversational chat with history support
+- 🔔 Notifications for farm events
+- 🌙 Clean, responsive mobile UI
 
 ---
 
@@ -21,27 +29,27 @@ FlockPilot is a poultry farm management application designed to help farmers eff
 
 - **Flutter** (UI framework)
 - **Dart** (language)
-- **Provider / Riverpod / Bloc** _(depending on your state management choice)_
-- **REST API integration** (backend communication)
-- **Grok API** (AI assistant)
-- **Local Storage** (Hive / SharedPreferences)
+- **Riverpod** (state management)
+- **Dio** (HTTP client)
+- **GoRouter** (navigation)
+- **Grok / LLM API** (AI assistant integration)
+- **Local storage** (token persistence, caching)
 
 ---
 
 ## 📱 App Architecture
 
-The app follows a **feature-based architecture**:
+The project follows a **feature-first architecture**:
 
 ```
 lib/
 │
-├── core/              # Shared utilities, constants, themes
-├── features/         # Feature modules (flock, feed, dashboard, etc.)
-├── services/         # API services and external integrations
-├── models/           # Data models
-├── state/            # State management (Provider/Bloc/etc.)
-├── widgets/          # Reusable UI components
-└── main.dart         # Entry point
+├── core/              # App config, router, theme, API client
+├── features/         # Feature modules (flocks, feed, AI chat, etc.)
+├── provider/         # Riverpod state management
+├── data/             # Repositories & API layer
+├── shared/           # Models, widgets, utilities
+├── main.dart         # App entry point
 ```
 
 ---
@@ -52,8 +60,10 @@ lib/
 
 ```bash
 git clone https://github.com/yourusername/flockpilot.git
-cd flockpilot
+cd flockpilot-frontend
 ```
+
+---
 
 ### 2. Install dependencies
 
@@ -61,7 +71,23 @@ cd flockpilot
 flutter pub get
 ```
 
-### 3. Run the app
+---
+
+### 3. Configure API
+
+Update your API base URL inside:
+
+```dart
+BaseOptions(
+  baseUrl: 'http://your-backend-url/api/v1',
+)
+```
+
+Or use environment variables if configured.
+
+---
+
+### 4. Run the app
 
 ```bash
 flutter run
@@ -69,61 +95,57 @@ flutter run
 
 ---
 
-## 🔌 Environment Setup
+## 🔌 Backend Integration
 
-Create a `.env` file (if using environment variables):
+This frontend communicates with the **FlockPilot Backend API** for:
 
-```env
-API_BASE_URL=https://your-backend-url.com
-GROK_API_KEY=your_grok_api_key
-```
+- Farm data
+- Flock tracking
+- Inventory & feed logs
+- Expense management
+- AI assistant chat system
 
-Or configure them in your service layer.
-
----
-
-## 📡 Backend Integration
-
-The app communicates with a backend API for:
-
-- Flock data management
-- Feed tracking
-- Analytics generation
-- AI assistant queries
-
-Ensure your backend is running before launching the app.
+👉 Backend API:
+[https://github.com/yourusername/flockpilot-backend](https://github.com/yourusername/flockpilot-backend)
 
 ---
 
-## 🤖 AI Assistant (Grok Integration)
+## 🤖 AI Assistant (CoopMind)
 
-FlockPilot uses Grok API to provide:
+The AI assistant provides:
 
-- Smart feeding recommendations
-- Health alerts for poultry
-- Productivity insights
-- Context-aware farm advice
+- Smart farm insights
+- Feed optimization suggestions
+- Flock health analysis
+- Expense and productivity insights
+- Context-aware chat using farm data + history
 
-The AI is designed to be **context-aware using structured farm data**, not raw database dumps.
+Chat supports:
+
+- Conversation history
+- Persistent conversation IDs
+- Multi-turn contextual responses
 
 ---
 
-## 📦 Dependencies (Example)
+## 📦 Key Dependencies
 
 ```yaml
 dependencies:
   flutter:
-  http:
-  provider:
-  flutter_dotenv:
+  flutter_riverpod:
+  dio:
+  go_router:
   intl:
+  flutter_markdown:
+  toastification:
 ```
 
 ---
 
 ## 🧪 Testing
 
-Run unit tests:
+Run tests:
 
 ```bash
 flutter test
@@ -133,22 +155,28 @@ flutter test
 
 ## 📌 Roadmap
 
-- [ ] Offline mode support
+- [ ] Offline-first support
+- [ ] Voice AI assistant
+- [ ] Multi-farm switching
 - [ ] Advanced analytics dashboard
-- [ ] Voice-enabled AI assistant
-- [ ] Multi-farm management
 - [ ] IoT sensor integration
+- [ ] Push notifications
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome. Please fork the repo and submit a PR.
+Contributions are welcome:
+
+1. Fork repository
+2. Create feature branch
+3. Commit changes
+4. Open Pull Request
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+MIT License
 
 ---

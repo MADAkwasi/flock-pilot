@@ -1,6 +1,7 @@
 import 'package:flock_pilot/provider/ai_assistant_provider.dart';
 import 'package:flock_pilot/provider/farm_provider.dart';
 import 'package:flock_pilot/shared/models/ai_response_model.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -150,9 +151,20 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
             bottomRight: Radius.circular(isUser ? 0 : 16),
           ),
         ),
-        child: Text(
-          message.message,
-          style: TextStyle(color: isUser ? Colors.white : Colors.black87),
+        child: MarkdownBody(
+          data: message.message,
+          selectable: true,
+          styleSheet: MarkdownStyleSheet(
+            p: TextStyle(
+              color: isUser ? Colors.white : Colors.black87,
+              fontSize: 14,
+            ),
+
+            strong: TextStyle(
+              color: isUser ? Colors.white : Colors.black87,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
