@@ -98,7 +98,10 @@ class BatchCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _statItem("Birds", batch.currentCount.toString()),
-                  _statItem("Age", formatFlockAge(batch.startDate)),
+                  _statItem(
+                    "Age",
+                    "${calculateFlockAgeInWeeks(batch.startDate)} weeks",
+                  ),
                   _statItem(
                     "Feed",
                     "${batch.feedConsumed.toStringAsFixed(2)}kg",

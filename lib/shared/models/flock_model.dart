@@ -6,6 +6,7 @@ class FlockModel {
   final int currentCount;
   final int initialCount;
   final String? source;
+  final String? insight;
   final String status;
   final DateTime startDate;
 
@@ -22,6 +23,7 @@ class FlockModel {
     required this.eggsLaid,
     required this.feedConsumed,
     required this.startDate,
+    required this.insight,
     this.breed,
     this.source,
   });
@@ -36,6 +38,7 @@ class FlockModel {
       initialCount: json['initialCount'] ?? 0,
       source: json['source'],
       status: json['status'],
+      insight: json['insight'],
       startDate: DateTime.parse(json['startDate']),
 
       eggsLaid: json['eggsLaid'] ?? 0,

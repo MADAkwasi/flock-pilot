@@ -16,5 +16,5 @@ Color statusColor(String status) {
 }
 
 Color typeColor(String type) {
-  return type == 'layer' ? Colors.blue : Colors.deepOrange;
+  return type == 'LAYER' ? Colors.blue : Colors.deepOrange;
 }
