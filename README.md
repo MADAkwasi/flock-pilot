@@ -18,7 +18,7 @@ This repository contains the **Flutter frontend**, which connects to the FlockPi
 - 🍗 Feed consumption and inventory management
 - 💰 Expense tracking
 - 📈 Analytics and farm insights
-- 🤖 AI assistant (CoopMind) powered by Groq API
+- 🤖 AI assistant (FlockPilot AI) powered by Groq API
 - 💬 Conversational chat with history support
 - 🔔 Notifications for farm events
 - 🌙 Clean, responsive mobile UI
@@ -110,7 +110,7 @@ This frontend communicates with the **FlockPilot Backend API** for:
 
 ---
 
-## 🤖 AI Assistant (CoopMind)
+## 🤖 AI Assistant (FlockPilot AI)
 
 The AI assistant provides:
 
