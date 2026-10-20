@@ -27,7 +27,7 @@ class Carousel extends StatelessWidget {
             }).toList(),
 
       options: CarouselOptions(
-        autoPlay: batchData.isNotEmpty,
+        autoPlay: batchData.length > 2,
         autoPlayInterval: const Duration(seconds: 5),
         enlargeCenterPage: true,
         viewportFraction: 0.85,
