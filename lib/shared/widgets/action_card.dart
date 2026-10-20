@@ -47,7 +47,6 @@ class ActionCard extends StatelessWidget {
 
                   if (textPosition == CardTextPosition.inside)
                     const SizedBox(height: 10),
-
                   if (textPosition == CardTextPosition.inside)
                     Text(
                       label,
@@ -64,7 +63,7 @@ class ActionCard extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 10),
+        if (textPosition == CardTextPosition.bottom) const SizedBox(height: 10),
 
         if (textPosition == CardTextPosition.bottom)
           Text(
