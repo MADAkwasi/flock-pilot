@@ -26,12 +26,12 @@ class LoginScreen extends ConsumerWidget {
           child: ListView(
             children: [
               Text(
-                'Create Your FlockPilot Account',
+                'Welcome Back to FlockPilot',
                 style: Theme.of(context).textTheme.headlineLarge,
                 textAlign: TextAlign.center,
               ),
               Text(
-                'Start managing your poultry farm with smart tracking, insights, and real-time flock monitoring.',
+                'Log in to manage your poultry farm, track performance, and stay updated on your flock’s health.',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
