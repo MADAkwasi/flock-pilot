@@ -79,7 +79,7 @@ class _AppShellState extends ConsumerState<AppShell> {
                   height: 24,
                 ),
 
-                label: const Text('Ask CoopMind AI'),
+                label: const Text('Ask FlockPilot AI'),
               )
             : FloatingActionButton(
                 key: const ValueKey('normal_fab'),

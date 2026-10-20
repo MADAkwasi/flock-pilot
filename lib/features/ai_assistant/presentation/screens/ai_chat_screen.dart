@@ -41,7 +41,7 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
               id: 'welcome',
               role: 'ASSISTANT',
               message:
-                  'Hello 👋 I am CoopMind. How can I help your farm today?',
+                  'Hello 👋 I am FlockPilot AI. How can I help your farm today?',
               createdAt: DateTime.now(),
               conversationId: '',
             ),
@@ -179,7 +179,7 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
             child: TextField(
               controller: _controller,
               decoration: InputDecoration(
-                hintText: 'Ask CoopMind...',
+                hintText: 'Ask FlockPilot...',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -211,7 +211,7 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
     final isLoading = ref.watch(aiChatProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('CoopMind AI')),
+      appBar: AppBar(title: const Text('FlockPilot AI')),
 
       body: Column(
         children: [
